@@ -15,6 +15,11 @@ export const GlobalStyles = createGlobalStyle`
 
     body {
         background-color: ${({ theme }) => theme.colors.bodyBackground};
+        font-family: 'Irish Grover', cursive;
+    }
+
+    button {
+        font-family: 'Alfa Slab One', cursive;
     }
 
     a {
