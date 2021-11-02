@@ -42,14 +42,17 @@ export const FieldButton = styled.button`
     border: 0;
     border-radius: 8px;
     background-color: ${({ theme }) => theme.colors.button};
+    outline: none;      
 
     ${({ y, activeY, theme }) => y === activeY && "background-color:" + theme.colors.buttonLineHover + ";"}
     ${({ x, activeX, theme }) => x === activeX && "background-color:" + theme.colors.buttonLineHover + ";"}
-
-    &:hover {
-        background-color: ${({ theme }) => theme.colors.buttonHover};
-        cursor: pointer;
-        border-radius: 10px;
-        transform: scale(1.2);
-    }
+    ${({ x, y, activeX, activeY, theme }) => {
+        if(y === activeY && x === activeX) {
+            return `background-color: ${theme.colors.buttonHover};
+            cursor: pointer;
+            border-radius: 10px;
+            transform: scale(1.2);`
+        }
+        return "";
+    }};
 `;
