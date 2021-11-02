@@ -8,8 +8,18 @@ const Numbers = () => {
     return (
         <NumbersGrid>
             {
-                numbers.map((number, index) => {
-                    return <NumberField><Number>{index}</Number> <Amount>{number}</Amount></NumberField>
+                numbers.map((amount, index) => {
+                    const number = index + 1;
+                    return (
+                        <NumberField key={index} onMouseEnter={(e) => e.target.focus()}>
+                            <Number>
+                                {number}
+                            </Number>
+                            <Amount>
+                                {amount}
+                            </Amount>
+                        </NumberField>
+                    )
                 })
             }
         </NumbersGrid>

@@ -23,6 +23,7 @@ export const theme = {
         bodyBackground: pallette.indigoLight,
         title: pallette.white,
         shadow: pallette.deepSapphire,
+        focus: pallette.cranberry,
         diagram: pallette.indigo,
         diagramBorder: pallette.sanJuan,
         field: "transparent",

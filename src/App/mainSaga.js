@@ -4,8 +4,6 @@ import { select, put, takeLatest } from 'redux-saga/effects'
 function* keyReaction() {
     const key = yield select(selectLastKey);
     const activeField = yield select(selectActiveField);
-    console.log(key);
-    console.log(activeField);
     switch (key) {
         case "ArrowUp":
         case "w":
@@ -21,8 +19,6 @@ function* keyReaction() {
             yield activeField.x < 8 && put(setActiveField({ x: activeField.x + 1, y: activeField.y })); break;
         default: break;
     }
-    console.log(key);
-    console.log(activeField);
     // const x = yield call(normal function);
 }
 

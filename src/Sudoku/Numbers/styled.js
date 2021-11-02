@@ -27,7 +27,12 @@ export const NumberField = styled.button`
     border-radius: 8px;
     background-color: ${({ theme }) => theme.colors.numberBackground};
     outline: none;
-    transition: 0.05s;
+    transition: 0.2s;
+    cursor: pointer;
+
+    &:focus {
+        box-shadow: 0px 0px 15px 5px ${({ theme }) => theme.colors.focus};
+    }
 `;
 
 export const Number = styled.span`

@@ -49,7 +49,7 @@ export const FieldButton = styled.button`
     ${({ y, activeY, theme }) => y === activeY && "background-color:" + theme.colors.buttonLineHover + ";"}
     ${({ x, activeX, theme }) => x === activeX && "background-color:" + theme.colors.buttonLineHover + ";"}
     ${({ x, y, activeX, activeY, theme }) => {
-        if(y === activeY && x === activeX) {
+        if (y === activeY && x === activeX) {
             return `
             background-color: ${theme.colors.buttonHover};
             cursor: pointer;
@@ -58,4 +58,8 @@ export const FieldButton = styled.button`
         }
         return "";
     }};
+
+    &:focus {
+        box-shadow: 0px 0px 10px 3px ${({ theme }) => theme.colors.focus};
+    }
 `;

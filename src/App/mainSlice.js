@@ -4,9 +4,11 @@ const mainSlice = createSlice({
     name: 'sudokuSolver',
     initialState: {
         given : new Array(9).fill(null).map(() => new Array(9).fill(null)),
-        numbers : new Array(9).fill(9),
         activeField: {x: 0, y: 0},
+        numbers : new Array(9).fill(9),
+        activeNumber: 1,
         lastKey: null,
+        
     },
     reducers: {
         setGiven: (state, { payload: table }) => {

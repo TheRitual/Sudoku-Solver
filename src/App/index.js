@@ -10,7 +10,15 @@ import { theme } from "./theme";
 const App = () => {
   const dispatch = useDispatch();
   const keyReaction = (event) => {
-    event.preventDefault();
+    if (
+      event.key === "ArrowDown" ||
+      event.key === "ArrowUp" ||
+      event.key === "ArrowLeft" ||
+      event.key === "ArrowRight"
+    ) {
+      event.preventDefault();
+    }
+
     dispatch(setLastKey(event.key));
   };
 
