@@ -14,6 +14,7 @@ export const Grid = styled.div`
     transition: 0.3s;
     border: 3px solid ${({ theme }) => theme.colors.diagramBorder};
     padding: 20px;
+    margin-bottom: 30px;
 
     &:hover {
         border-radius: 15px;
@@ -36,19 +37,21 @@ export const Field = styled.div`
 `;
 
 export const FieldButton = styled.button`
-    width: 100%;
-    height: 100%;
     margin: 0;
     border: 0;
+    width: 100%;
+    height: 100%;
     border-radius: 8px;
     background-color: ${({ theme }) => theme.colors.button};
-    outline: none;      
+    outline: none;
+    transition: 0.05s;
 
     ${({ y, activeY, theme }) => y === activeY && "background-color:" + theme.colors.buttonLineHover + ";"}
     ${({ x, activeX, theme }) => x === activeX && "background-color:" + theme.colors.buttonLineHover + ";"}
     ${({ x, y, activeX, activeY, theme }) => {
         if(y === activeY && x === activeX) {
-            return `background-color: ${theme.colors.buttonHover};
+            return `
+            background-color: ${theme.colors.buttonHover};
             cursor: pointer;
             border-radius: 10px;
             transform: scale(1.2);`

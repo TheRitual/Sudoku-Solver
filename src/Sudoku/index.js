@@ -1,5 +1,6 @@
 import Diagram from "./Diagram";
 import Main from "./Main";
+import Numbers from "./Numbers";
 import Title from "./Title";
 
 const Sudoku = () => {
@@ -7,6 +8,7 @@ const Sudoku = () => {
         <Main>
             <Title> Sudoku Solver </Title>
             <Diagram />
+            <Numbers />
         </Main>
     );
 }
