@@ -35,6 +35,7 @@ export const theme = {
         numberBackground: pallette.siren,
         number: pallette.white,
         amount: pallette.cranberry,
+        activeNumber: pallette.parisM,
     },
     breakpoints: {
         mobile: "320px",

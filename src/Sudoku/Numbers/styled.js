@@ -26,6 +26,7 @@ export const NumberField = styled.button`
     border: 0;
     border-radius: 8px;
     background-color: ${({ theme }) => theme.colors.numberBackground};
+    ${({ theme, active, num }) => active === num && "background-color:" + theme.colors.activeNumber + ";"};
     outline: none;
     transition: 0.2s;
     cursor: pointer;

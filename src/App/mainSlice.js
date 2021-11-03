@@ -3,26 +3,33 @@ import { createSlice } from "@reduxjs/toolkit";
 const mainSlice = createSlice({
     name: 'sudokuSolver',
     initialState: {
-        given : new Array(9).fill(null).map(() => new Array(9).fill(null)),
-        activeField: {x: 0, y: 0},
-        numbers : new Array(9).fill(9),
+        given: new Array(9).fill(null).map(() => new Array(9).fill(null)),
+        activeField: { x: 0, y: 0 },
+        numbers: new Array(9).fill(9),
         activeNumber: 1,
         lastKey: null,
-        
     },
     reducers: {
-        setGiven: (state, { payload: table }) => {
-            state.given = table;
+        setGiven: (state, { payload: change }) => {
+            state.given[change.x][change.y] = change.value;
         },
-        setActiveField: (state, {payload: field}) => {
+        setActiveField: (state, { payload: field }) => {
             state.activeField = field;
         },
-        setLastKey: (state, {payload: key}) => {
+        setLastKey: (state, { payload: key }) => {
             state.lastKey = key;
         },
-        setNumbers: (state, {payload: change}) => {
+        setNumbers: (state, { payload: change }) => {
             state.numbers[change.index] = change.value;
-        }
+        },
+        setActiveNumber: (state, { payload: number }) => {
+            state.activeNumber = number;
+        },
+        insertNumber: () => { },
+        clearAll: (state) => {
+            state.given = new Array(9).fill(null).map(() => new Array(9).fill(null));
+            state.numbers = new Array(9).fill(9);
+        },
     }
 });
 
@@ -31,13 +38,15 @@ export const {
     setActiveField,
     setLastKey,
     setNumbers,
+    setActiveNumber,
+    insertNumber,
 } = mainSlice.actions;
 
 export const selectSudokuSolverSaga = state => state.sudokuSolver;
 export const selectGiven = state => selectSudokuSolverSaga(state).given;
 export const selectNumbers = state => selectSudokuSolverSaga(state).numbers;
 export const selectActiveField = state => selectSudokuSolverSaga(state).activeField;
+export const selectActiveNumber = state => selectSudokuSolverSaga(state).activeNumber;
 export const selectLastKey = state => selectSudokuSolverSaga(state).lastKey;
-
 
 export default mainSlice.reducer;
