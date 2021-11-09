@@ -28,7 +28,7 @@ export const theme = {
         diagram: pallette.indigo,
         diagramBorder: pallette.sanJuan,
         diagramNumber: pallette.deepSapphire,
-        diagramNumberShadow: pallette.deepSapphire,
+        diagramNumberShadow: pallette.funBlue,
         field: "transparent",
         fieldBorder: pallette.sanJuan,
         fieldBorderGroup: pallette.deepSapphire,
