@@ -8,6 +8,7 @@ const mainSlice = createSlice({
         numbers: new Array(9).fill(9),
         activeNumber: 1,
         lastKey: null,
+        conflicts: {col: null, row: null, group: null},
     },
     reducers: {
         setGiven: (state, { payload: change }) => {
@@ -18,6 +19,9 @@ const mainSlice = createSlice({
         },
         setLastKey: (state, { payload: key }) => {
             state.lastKey = key;
+        },
+        setConflicts: (state, { payload: conflicts }) => {
+            state.conflicts = conflicts;
         },
         setNumbers: (state, { payload: change }) => {
             state.numbers[change.index] = change.value;
@@ -41,6 +45,7 @@ export const {
     setActiveNumber,
     insertNumber,
     clearAll,
+    setConflicts,
 } = mainSlice.actions;
 
 export const selectSudokuSolverSaga = state => state.sudokuSolver;

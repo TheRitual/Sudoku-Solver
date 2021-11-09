@@ -1,6 +1,6 @@
-import { clearAll, insertNumber, selectActiveField, selectActiveNumber, selectGiven, selectLastKey, setActiveField, setActiveNumber, setGiven, setLastKey, setNumbers } from "./mainSlice";
-import { select, put, takeLatest } from 'redux-saga/effects'
-import { count, getConflicts, isConflict } from '../utils/arrayFunctions'
+import { clearAll, insertNumber, selectActiveField, selectActiveNumber, selectGiven, selectLastKey, setActiveField, setActiveNumber, setConflicts, setGiven, setLastKey, setNumbers } from "./mainSlice";
+import { select, put, takeLatest, call } from 'redux-saga/effects'
+import { count, getConflicts, getGroupXY, isConflict } from '../utils/arrayFunctions'
 
 function* keyReaction() {
     const key = yield select(selectLastKey);
@@ -49,7 +49,7 @@ function* applyingNumber() {
     const given = yield select(selectGiven);
     const oldNumber = yield given[activeField.x][activeField.y];
     const newNumber = yield activeNumber - 1;
-    const isOk = yield isConflict(given, activeField, activeNumber);
+    const isOk = yield call(isConflict, given, activeField, activeNumber);
     if (isOk) {
         yield put(setGiven({ x: activeField.x, y: activeField.y, value: activeNumber }));
         const changedGiven = yield select(selectGiven);
@@ -60,10 +60,14 @@ function* applyingNumber() {
             yield put(setNumbers({ index: oldNumber - 1, value: oldAmount }));
         }
     } else {
-        const conflicts = yield getConflicts(given, activeField, activeNumber);
-        conflicts.row && console.log("Conflict in a ROW");
-        conflicts.col && console.log("Conflict in a COL");
-        conflicts.group && console.log("Conflict in a GROUP");
+        const areConflicts = yield getConflicts(given, activeField, activeNumber);
+        const groupXY = yield call(getGroupXY, activeField);
+        const conflicts = yield {
+            row: areConflicts.row ? activeField.y : null,
+            col: areConflicts.col ? activeField.x : null,
+            group: areConflicts.group ? groupXY : null,
+        }
+        yield put(setConflicts(conflicts));
     }
 }
 

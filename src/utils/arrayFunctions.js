@@ -21,6 +21,12 @@ export const getGroup = (array, field) => {
     return group;
 }
 
+export const getGroupXY = (field) => {
+    const groupX = Math.floor(field.x / 3);
+    const groupY = Math.floor(field.y / 3);
+    return { gx: groupX, gy: groupY };
+}
+
 export const isConflict = (array, field, number) => {
     const row = getRow(array, field.y);
     const col = getColumn(array, field.x);
