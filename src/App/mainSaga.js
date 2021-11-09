@@ -1,6 +1,6 @@
-import { clearAll, insertNumber, selectActiveField, selectActiveNumber, selectGiven, selectLastKey, selectNumbers, setActiveField, setActiveNumber, setGiven, setLastKey, setNumbers } from "./mainSlice";
+import { clearAll, insertNumber, selectActiveField, selectActiveNumber, selectGiven, selectLastKey, setActiveField, setActiveNumber, setGiven, setLastKey, setNumbers } from "./mainSlice";
 import { select, put, takeLatest } from 'redux-saga/effects'
-import { checkRepeating, count } from '../utils/arrayFunctions'
+import { count, getConflicts, isConflict } from '../utils/arrayFunctions'
 
 function* keyReaction() {
     const key = yield select(selectLastKey);
@@ -49,9 +49,8 @@ function* applyingNumber() {
     const given = yield select(selectGiven);
     const oldNumber = yield given[activeField.x][activeField.y];
     const newNumber = yield activeNumber - 1;
-    const numbers = yield select(selectNumbers);
-    const isOk = yield checkRepeating(given, activeField, activeNumber);
-    if (numbers[activeNumber - 1] > 0 && isOk) {
+    const isOk = yield isConflict(given, activeField, activeNumber);
+    if (isOk) {
         yield put(setGiven({ x: activeField.x, y: activeField.y, value: activeNumber }));
         const changedGiven = yield select(selectGiven);
         const newAmount = yield 9 - count(changedGiven, activeNumber);
@@ -60,6 +59,11 @@ function* applyingNumber() {
             const oldAmount = yield 9 - count(changedGiven, oldNumber);
             yield put(setNumbers({ index: oldNumber - 1, value: oldAmount }));
         }
+    } else {
+        const conflicts = yield getConflicts(given, activeField, activeNumber);
+        conflicts.row && console.log("Conflict in a ROW");
+        conflicts.col && console.log("Conflict in a COL");
+        conflicts.group && console.log("Conflict in a GROUP");
     }
 }
 

@@ -21,14 +21,16 @@ export const getGroup = (array, field) => {
     return group;
 }
 
-export const checkRepeating = (array, field, number) => {
+export const isConflict = (array, field, number) => {
     const row = getRow(array, field.y);
     const col = getColumn(array, field.x);
     const group = getGroup(array, field);
-    if(row.includes(number) || col.includes(number) || group.includes(number)) {
-        console.log("row", row.includes(number));
-        console.log("col", col.includes(number));
-        console.log("gro", group.includes(number));
-    }
     return !row.includes(number) && !col.includes(number) && !group.includes(number);
+}
+
+export const getConflicts = (array, field, number) => {
+    const row = getRow(array, field.y);
+    const col = getColumn(array, field.x);
+    const group = getGroup(array, field);
+    return { row: row.includes(number), col: col.includes(number), group: group.includes(number) };
 }
