@@ -54,5 +54,6 @@ export const selectNumbers = state => selectSudokuSolverSaga(state).numbers;
 export const selectActiveField = state => selectSudokuSolverSaga(state).activeField;
 export const selectActiveNumber = state => selectSudokuSolverSaga(state).activeNumber;
 export const selectLastKey = state => selectSudokuSolverSaga(state).lastKey;
+export const selectConflicts = state => selectSudokuSolverSaga(state).conflicts;
 
 export default mainSlice.reducer;

@@ -35,6 +35,7 @@ export const theme = {
         button: pallette.indigoLight,
         buttonHover: pallette.cranberry,
         buttonLineHover: pallette.indigoDarker,
+        buttonConflict: pallette.siren,
         numberBackground: pallette.siren,
         number: pallette.white,
         amount: pallette.cranberry,

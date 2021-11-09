@@ -1,6 +1,6 @@
 import { Field, Grid, FieldButton } from "./styled";
 import { useDispatch } from "react-redux";
-import { insertNumber, selectActiveField, selectGiven, setActiveField } from "../../App/mainSlice";
+import { insertNumber, selectActiveField, selectConflicts, selectGiven, setActiveField } from "../../App/mainSlice";
 import { useSelector } from "react-redux";
 import React, { useEffect, useRef } from "react";
 
@@ -8,6 +8,7 @@ const Diagram = () => {
     const grid = useRef(null);
     const dispatch = useDispatch();
     const activeField = useSelector(selectActiveField);
+    const conflicts = useSelector(selectConflicts);
     const given = useSelector(selectGiven);
 
     useEffect(() => {
@@ -32,6 +33,9 @@ const Diagram = () => {
                         return (
                             <Field key={ix + "-" + iy} x={ix} y={iy}>
                                 <FieldButton
+                                    conflictRow={conflicts.row}
+                                    conflictCol={conflicts.col}
+                                    conflictGroup={conflicts.group}
                                     activeX={activeField.x}
                                     onMouseOver={(e) => e.target.focus()}
                                     activeY={activeField.y}
