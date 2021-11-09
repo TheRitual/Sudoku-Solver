@@ -3,6 +3,10 @@ import styled from "styled-components";
 
 export const ToolsBox = styled.div`
     display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    align-content: stretch;
+    gap: 5px;
     width: 100%;
     min-height: 13vh;
     background-color: ${({ theme }) => theme.colors.diagram};
@@ -17,3 +21,19 @@ export const ToolsBox = styled.div`
         border-radius: 15px;
     }
 `;
+
+export const ToolsButton = styled.button`
+    flex-grow: 1;
+    margin: 0;
+    border: 0;
+    border-radius: 8px;
+    background-color: ${({ theme }) => theme.colors.toolsButton};
+    color: ${({ theme }) => theme.colors.toolsButtonText};
+    transition: 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.1);
+        filter: brightness(1.2);
+    }
+`

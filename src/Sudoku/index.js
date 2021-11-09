@@ -2,7 +2,7 @@ import Diagram from "./Diagram";
 import Main from "./Main";
 import Numbers from "./Numbers";
 import Title from "./Title";
-import { ToolsBox } from "./Tools/styled";
+import Tools from "./Tools";
 
 const Sudoku = () => {
     return (
@@ -10,7 +10,7 @@ const Sudoku = () => {
             <Title> Sudoku Solver </Title>
             <Diagram />
             <Numbers />
-            <ToolsBox />
+            <Tools />
         </Main>
     );
 }

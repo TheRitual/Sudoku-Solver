@@ -39,6 +39,8 @@ export const theme = {
         number: pallette.white,
         amount: pallette.cranberry,
         activeNumber: pallette.parisM,
+        toolsButton: pallette.amethyst,
+        toolsButtonText: pallette.parisM,
     },
     breakpoints: {
         mobile: "320px",
