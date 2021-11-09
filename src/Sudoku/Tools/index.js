@@ -1,9 +1,16 @@
+import { useDispatch } from "react-redux";
+import { clearAll } from "../../App/mainSlice";
 import { ToolsBox, ToolsButton } from "./styled";
 
 const Tools = () => {
+    const dispatch = useDispatch();
+    const onClearSudoku = () => {
+        dispatch(clearAll());
+    }
+
     return (
         <ToolsBox>
-            <ToolsButton>Clear Sudoku</ToolsButton>
+            <ToolsButton onClick={onClearSudoku}>Clear Sudoku</ToolsButton>
         </ToolsBox>
     );
 }

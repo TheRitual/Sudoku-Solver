@@ -40,6 +40,7 @@ export const {
     setNumbers,
     setActiveNumber,
     insertNumber,
+    clearAll,
 } = mainSlice.actions;
 
 export const selectSudokuSolverSaga = state => state.sudokuSolver;

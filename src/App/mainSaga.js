@@ -1,4 +1,4 @@
-import { insertNumber, selectActiveField, selectActiveNumber, selectGiven, selectLastKey, selectNumbers, setActiveField, setActiveNumber, setGiven, setLastKey, setNumbers } from "./mainSlice";
+import { clearAll, insertNumber, selectActiveField, selectActiveNumber, selectGiven, selectLastKey, selectNumbers, setActiveField, setActiveNumber, setGiven, setLastKey, setNumbers } from "./mainSlice";
 import { select, put, takeLatest } from 'redux-saga/effects'
 import { checkRepeating, count } from '../utils/arrayFunctions'
 
@@ -24,6 +24,8 @@ function* keyReaction() {
             yield put(setActiveNumber(8)); break;
         case "9":
             yield put(setActiveNumber(9)); break;
+        case "c":
+            yield put(clearAll()); break;
         case "ArrowUp":
         case "w":
             yield activeField.y > 0 && put(setActiveField({ x: activeField.x, y: activeField.y - 1 })); break;
@@ -49,7 +51,7 @@ function* applyingNumber() {
     const newNumber = yield activeNumber - 1;
     const numbers = yield select(selectNumbers);
     const isOk = yield checkRepeating(given, activeField, activeNumber);
-    if (numbers[activeNumber - 1] > 0 &&  isOk) {
+    if (numbers[activeNumber - 1] > 0 && isOk) {
         yield put(setGiven({ x: activeField.x, y: activeField.y, value: activeNumber }));
         const changedGiven = yield select(selectGiven);
         const newAmount = yield 9 - count(changedGiven, activeNumber);
