@@ -31,6 +31,7 @@ export const ToolsButton = styled.button`
     color: ${({ theme }) => theme.colors.toolsButtonText};
     transition: 0.2s;
     cursor: pointer;
+    font-size: 19px;
 
     &:hover {
         transform: scale(1.1);

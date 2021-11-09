@@ -45,7 +45,7 @@ export const FieldButton = styled.button`
     background-color: ${({ theme }) => theme.colors.button};
     outline: none;
     transition: 0.05s;
-    font-size: 30px;
+    font-size: 25px;
     color: ${({ theme }) => theme.colors.diagramNumber};
     text-shadow: 0px 0px 15px ${({ theme }) => theme.colors.diagramNumberShadow};
 
