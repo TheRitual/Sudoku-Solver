@@ -49,39 +49,41 @@ function* keyReaction() {
 }
 
 function* applyingNumber() {
-    const activeField = yield select(selectActiveField);
-    yield put(setLastClicked(activeField));
-    const activeNumber = yield select(selectActiveNumber);
-    yield put(setConflicts(null));
-    const given = yield select(selectGiven);
-    const custom = yield select(selectCustom);
-    const combined = yield call(combineArrays, given, custom);
     const mode = yield select(selectMode);
-    const oldNumber = yield mode === "given" ? given[activeField.x][activeField.y] : custom[activeField.x][activeField.y];
-    const newNumber = yield activeNumber - 1;
-    const isOk = yield call(isConflict, combined, activeField, activeNumber);
-    if (isOk) {
-        const val = yield { x: activeField.x, y: activeField.y, value: activeNumber === 0 ? null : activeNumber };
-        console.log(mode, val);
-        if (mode === "given") {
-            yield put(setGiven(val));
-            const clearCustomField = yield { x: activeField.x, y: activeField.y, value: null };
-            yield put(setCustom(clearCustomField));
+    if (mode !== "solving") {
+        const activeField = yield select(selectActiveField);
+        yield put(setLastClicked(activeField));
+        const activeNumber = yield select(selectActiveNumber);
+        yield put(setConflicts(null));
+        const given = yield select(selectGiven);
+        const custom = yield select(selectCustom);
+        const combined = yield call(combineArrays, given, custom);
+        const oldNumber = yield mode === "given" ? given[activeField.x][activeField.y] : custom[activeField.x][activeField.y];
+        const newNumber = yield activeNumber - 1;
+        const isOk = yield call(isConflict, combined, activeField, activeNumber);
+        if (isOk) {
+            const val = yield { x: activeField.x, y: activeField.y, value: activeNumber === 0 ? null : activeNumber };
+            console.log(mode, val);
+            if (mode === "given") {
+                yield put(setGiven(val));
+                const clearCustomField = yield { x: activeField.x, y: activeField.y, value: null };
+                yield put(setCustom(clearCustomField));
+            } else {
+                yield given[activeField.x][activeField.y] === null && put(setCustom(val));
+            }
+            const newGiven = yield select(selectGiven);
+            const newCustom = yield select(selectCustom);
+            const changedArray = yield call(combineArrays, newGiven, newCustom);
+            const newAmount = yield 9 - count(changedArray, activeNumber);
+            yield put(setNumbers({ index: newNumber, value: newAmount }));
+            if (oldNumber) {
+                const oldAmount = yield 9 - count(changedArray, oldNumber);
+                yield put(setNumbers({ index: oldNumber - 1, value: oldAmount }));
+            }
         } else {
-            yield given[activeField.x][activeField.y] === null && put(setCustom(val));
+            const conflicts = yield getConflicts(combined, activeField, activeNumber);
+            yield put(setConflicts(conflicts));
         }
-        const newGiven = yield select(selectGiven);
-        const newCustom = yield select(selectCustom);
-        const changedArray = yield call(combineArrays, newGiven, newCustom);
-        const newAmount = yield 9 - count(changedArray, activeNumber);
-        yield put(setNumbers({ index: newNumber, value: newAmount }));
-        if (oldNumber) {
-            const oldAmount = yield 9 - count(changedArray, oldNumber);
-            yield put(setNumbers({ index: oldNumber - 1, value: oldAmount }));
-        }
-    } else {
-        const conflicts = yield getConflicts(combined, activeField, activeNumber);
-        yield put(setConflicts(conflicts));
     }
 }
 

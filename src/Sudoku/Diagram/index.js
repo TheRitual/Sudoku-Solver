@@ -1,6 +1,6 @@
 import { Field, Grid, FieldButton } from "./styled";
 import { useDispatch } from "react-redux";
-import { insertNumber, selectActiveField, selectActiveNumber, selectConflicts, selectCustom, selectGiven, selectLastClicked, setActiveField } from "../../App/mainSlice";
+import { insertNumber, selectActiveField, selectActiveNumber, selectConflicts, selectCustom, selectGiven, selectLastClicked, selectMode, setActiveField } from "../../App/mainSlice";
 import { useSelector } from "react-redux";
 import React, { useEffect, useRef } from "react";
 import { combineArrays } from "../../utils/arrayFunctions";
@@ -15,6 +15,7 @@ const Diagram = () => {
     const given = useSelector(selectGiven);
     const custom = useSelector(selectCustom);
     const combined = combineArrays(given, custom);
+    const mode = useSelector(selectMode);
 
     useEffect(() => {
         const fields = Array.prototype.slice.call(grid.current.children);
@@ -46,6 +47,7 @@ const Diagram = () => {
                                     onClick={() => applyNumber()}
                                     x={ix}
                                     y={iy}
+                                    isSolving={mode === "solving"}
                                     isGiven={given[ix][iy] !== null}
                                     activeNumber={activeNumber}
                                     clickedRow={lastClicked && lastClicked.x === ix}

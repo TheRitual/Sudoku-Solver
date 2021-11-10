@@ -52,10 +52,10 @@ export const FieldButton = styled.button`
     text-shadow: 0px 0px 15px ${({ theme }) => theme.colors.diagram.field.button.numberShadow};
     cursor: cell;
 
-    ${({ clickedRow, theme }) => clickedRow && "background-color:" + theme.colors.diagram.field.button.cross + ";"}
-    ${({ clickedCol, theme }) => clickedCol && "background-color:" + theme.colors.diagram.field.button.cross + ";"}
-    ${({ isActive, numberMatch, theme }) => {
-        return isActive && css`
+    ${({ clickedRow, isSolving, theme }) => clickedRow && !isSolving && css`background-color: ${theme.colors.diagram.field.button.cross};`};
+    ${({ clickedCol, isSolving, theme }) => clickedCol && !isSolving && css`background-color: ${theme.colors.diagram.field.button.cross};`};
+    ${({ isActive, numberMatch, isSolving, theme }) => {
+        return isActive && !isSolving && css`
             background-color: ${theme.colors.diagram.field.button.activeBackground};
             border-radius: 10px;
             transform: scale(1.2);
@@ -72,7 +72,7 @@ export const FieldButton = styled.button`
     }
     };
 
-    ${({ isLastClicked, theme }) => isLastClicked && "border: 3px groove " + alpha(theme.colors.diagram.field.button.lastClicked, 0.3) + ";"}
+    ${({ isLastClicked, isSolving, theme }) => isLastClicked && !isSolving && css`border: 3px groove ${alpha(theme.colors.diagram.field.button.lastClicked, 0.3)};`}
 
     ${({ isGiven }) => isGiven && css`
             color: ${({ theme }) => theme.colors.diagram.givenNumber};
@@ -80,7 +80,7 @@ export const FieldButton = styled.button`
         `
     }
 
-    ${({ isConflict, theme }) => isConflict && css`
+    ${({ isConflict, isSolving, theme }) => isConflict && !isSolving && css`
         color: ${theme.colors.diagram.field.button.conflictText};
         text-shadow:    -1px -1px 0 ${theme.colors.diagram.field.button.conflictOutline},
                         1px -1px 0 ${theme.colors.diagram.field.button.conflictOutline},
@@ -89,7 +89,11 @@ export const FieldButton = styled.button`
         background-color: ${alpha(theme.colors.diagram.field.button.conflictBackground, 0.5)};
     `}
 
-    &:focus {
-    box-shadow: 0px 0px 10px 3px ${({ theme }) => theme.colors.diagram.field.button.focusedShadow};
-}
+    ${({ isSolving, theme }) => css`
+        &:focus {
+            box-shadow: 0px 0px 10px 3px ${isSolving ? "transparent" : theme.colors.diagram.field.button.focusedShadow};
+        }
+    `}
+
+    
 `;

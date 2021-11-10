@@ -38,7 +38,6 @@ const mainSlice = createSlice({
         setActiveNumber: (state, { payload: number }) => {
             state.activeNumber = number;
         },
-        insertNumber: () => { },
         clearAll: (state) => {
             state.given = new Array(9).fill(null).map(() => new Array(9).fill(null));
             state.numbers = new Array(9).fill(9);
@@ -46,6 +45,11 @@ const mainSlice = createSlice({
         setMode: (state, { payload: mode }) => {
             state.mode = mode;
         },
+        solve: (state) => {
+            state.mode = "solving";
+        },
+        insertNumber: () => { },
+        
     }
 });
 
@@ -61,6 +65,7 @@ export const {
     setConflicts,
     setLastClicked,
     setMode,
+    solve,
 } = mainSlice.actions;
 
 export const selectSudokuSolverSaga = state => state.sudokuSolver;
