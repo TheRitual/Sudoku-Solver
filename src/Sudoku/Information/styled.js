@@ -20,4 +20,5 @@ export const InformationBox = styled.div`
 export const InformationText = styled.span`
     color: ${({ theme }) => theme.colors.information.text};
     font-size: 24px;
+    cursor: default;
 `
