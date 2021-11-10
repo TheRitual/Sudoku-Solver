@@ -44,19 +44,30 @@ export const FieldButton = styled.button`
     border-radius: 8px;
     background-color: ${({ theme }) => theme.colors.button};
     outline: none;
-    transition: 0.05s;
+    transition: 0.2s;
     font-size: 25px;
     color: ${({ theme }) => theme.colors.diagramNumber};
     text-shadow: 0px 0px 15px ${({ theme }) => theme.colors.diagramNumberShadow};
 
     ${({ clickedRow, theme }) => clickedRow && "background-color:" + theme.colors.buttonLineHover + ";"}
     ${({ clickedCol, theme }) => clickedCol && "background-color:" + theme.colors.buttonLineHover + ";"}
-    ${({ isActive, theme }) => {
-        return isActive ? `
-            background-color: ${theme.colors.buttonHover};
+    ${({ isActive, numberMatch, theme }) => {
+        return isActive ? css`
+            background-color: ${theme.colors.activeButton};
             cursor: pointer;
             border-radius: 10px;
-            transform: scale(1.2);`
+            transform: scale(1.2);
+            font-size: 0px;
+            &::before {
+                font-size: 25px;
+                content: "${({ activeNumber }) => activeNumber}";
+                ${numberMatch ?
+                    css`color: ${({ theme }) => theme.colors.diagramNumber};`
+                    :
+                    css`color: ${({ theme }) => theme.colors.activeButtonText};`
+                    };
+            }
+            `
             :
             "";
     }};
@@ -65,10 +76,10 @@ export const FieldButton = styled.button`
 
     ${({ isConflict, theme }) => isConflict && css`
         color: ${theme.colors.buttonConflict};
-        text-shadow: 0px 0px 5px ${theme.colors.buttonConflict};
+        text-shadow: 0px 0px 3px ${theme.colors.buttonConflict};
     `}
 
     &:focus {
-    box-shadow: 0px 0px 10px 3px ${({ theme }) => theme.colors.focus};
-}
+        box-shadow: 0px 0px 10px 3px ${({ theme }) => theme.colors.focus};
+    }
 `;

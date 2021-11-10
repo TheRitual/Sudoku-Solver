@@ -1,6 +1,6 @@
 import { Field, Grid, FieldButton } from "./styled";
 import { useDispatch } from "react-redux";
-import { insertNumber, selectActiveField, selectConflicts, selectGiven, selectLastClicked, setActiveField } from "../../App/mainSlice";
+import { insertNumber, selectActiveField, selectActiveNumber, selectConflicts, selectGiven, selectLastClicked, setActiveField } from "../../App/mainSlice";
 import { useSelector } from "react-redux";
 import React, { useEffect, useRef } from "react";
 
@@ -9,6 +9,7 @@ const Diagram = () => {
     const dispatch = useDispatch();
     const activeField = useSelector(selectActiveField);
     const lastClicked = useSelector(selectLastClicked);
+    const activeNumber = useSelector(selectActiveNumber);
     const conflicts = useSelector(selectConflicts);
     const given = useSelector(selectGiven);
 
@@ -27,7 +28,7 @@ const Diagram = () => {
     }
 
     const isConflict = (x, y) => {
-        return conflicts && conflicts.some(conflict => conflict.x === x);
+        return conflicts && conflicts.some(conflict => conflict.x === x && conflict.y === y);
     }
 
     return (
@@ -42,11 +43,13 @@ const Diagram = () => {
                                     onClick={() => applyNumber()}
                                     x={ix}
                                     y={iy}
-                                    clickedRow={lastClicked.x === ix}
-                                    clickedCol={lastClicked.y === iy}
+                                    activeNumber={activeNumber}
+                                    clickedRow={lastClicked && lastClicked.x === ix}
+                                    clickedCol={lastClicked && lastClicked.y === iy}
                                     isLastClicked={lastClicked && ix === lastClicked.x && iy === lastClicked.y}
                                     isConflict={isConflict(ix, iy)}
                                     isActive={ix === activeField.x && iy === activeField.y}
+                                    numberMatch={x === activeNumber}
                                     onFocus={() => dispatch(setActiveField({ x: ix, y: iy }))}>
                                     {x}
                                 </FieldButton>
