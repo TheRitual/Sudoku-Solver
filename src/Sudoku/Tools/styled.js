@@ -34,7 +34,7 @@ export const ToolsButton = styled.button`
     font-size: 19px;
 
     &:hover {
-        transform: scale(1.1);
+        transform: scale(1.03);
         filter: brightness(1.2);
     }
 `
