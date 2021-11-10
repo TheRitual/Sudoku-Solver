@@ -62,7 +62,7 @@ export const FieldButton = styled.button`
                 font-size: 25px;
                 content: "${({ activeNumber }) => activeNumber}";
                 ${numberMatch ?
-                    css`color: ${({ theme }) => theme.colors.diagramNumber};`
+                    css`color: ${({ theme }) => theme.colors.matchingNumber};`
                     :
                     css`color: ${({ theme }) => theme.colors.activeButtonText};`
                     };
@@ -76,7 +76,10 @@ export const FieldButton = styled.button`
 
     ${({ isConflict, theme }) => isConflict && css`
         color: ${theme.colors.buttonConflict};
-        text-shadow: 0px 0px 3px ${theme.colors.buttonConflict};
+        text-shadow:    -1px -1px 0 ${theme.colors.buttonConflictOutline},
+                        1px -1px 0 ${theme.colors.buttonConflictOutline},
+                        -1px 1px 0 ${theme.colors.buttonConflictOutline},
+                        1px 1px 0 ${theme.colors.buttonConflictOutline};
     `}
 
     &:focus {
