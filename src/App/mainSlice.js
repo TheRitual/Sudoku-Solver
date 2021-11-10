@@ -10,6 +10,7 @@ const mainSlice = createSlice({
         activeNumber: 1,
         lastKey: null,
         conflicts: null,
+        mode: "primaryNumbers",
     },
     reducers: {
         setGiven: (state, { payload: change }) => {
@@ -38,6 +39,9 @@ const mainSlice = createSlice({
             state.given = new Array(9).fill(null).map(() => new Array(9).fill(null));
             state.numbers = new Array(9).fill(9);
         },
+        setMode: (state, { payload: mode }) => {
+            state.mode = mode;
+        },
     }
 });
 
@@ -51,6 +55,7 @@ export const {
     clearAll,
     setConflicts,
     setLastClicked,
+    setMode,
 } = mainSlice.actions;
 
 export const selectSudokuSolverSaga = state => state.sudokuSolver;
@@ -61,5 +66,6 @@ export const selectLastClicked = state => selectSudokuSolverSaga(state).lastClic
 export const selectActiveNumber = state => selectSudokuSolverSaga(state).activeNumber;
 export const selectLastKey = state => selectSudokuSolverSaga(state).lastKey;
 export const selectConflicts = state => selectSudokuSolverSaga(state).conflicts;
+export const selectMode = state => selectSudokuSolverSaga(state).mode;
 
 export default mainSlice.reducer;
