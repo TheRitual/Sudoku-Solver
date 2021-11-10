@@ -29,7 +29,7 @@ function* keyReaction() {
         case "c":
             yield put(clearAll()); break;
         case "o":
-            yield put(setMode("default")); break;
+            yield put(setMode("given")); break;
         case "p":
             yield put(setMode("custom")); break;
         case "ArrowUp":
@@ -57,13 +57,13 @@ function* applyingNumber() {
     const custom = yield select(selectCustom);
     const combined = yield call(combineArrays, given, custom);
     const mode = yield select(selectMode);
-    const oldNumber = yield mode === "default" ? given[activeField.x][activeField.y] : custom[activeField.x][activeField.y];
+    const oldNumber = yield mode === "given" ? given[activeField.x][activeField.y] : custom[activeField.x][activeField.y];
     const newNumber = yield activeNumber - 1;
     const isOk = yield call(isConflict, combined, activeField, activeNumber);
     if (isOk) {
         const val = yield { x: activeField.x, y: activeField.y, value: activeNumber === 0 ? null : activeNumber };
         console.log(mode, val);
-        if (mode === "default") {
+        if (mode === "given") {
             yield put(setGiven(val));
             const clearCustomField = yield { x: activeField.x, y: activeField.y, value: null };
             yield put(setCustom(clearCustomField));

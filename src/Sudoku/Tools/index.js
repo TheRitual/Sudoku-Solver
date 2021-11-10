@@ -9,7 +9,7 @@ const Tools = () => {
     return (
         <>
             <ToolsBox>
-                <ToolsButton isActive={mode === "default"} onClick={() => dispatch(setMode("default"))}>Default Numbers</ToolsButton>
+                <ToolsButton isActive={mode === "given"} onClick={() => dispatch(setMode("given"))}>Given Numbers</ToolsButton>
                 <ToolsButton isActive={mode === "custom"} onClick={() => dispatch(setMode("custom"))}>Custom Numbers</ToolsButton>
                 <ToolsButton isActive={mode === "solve"} onClick={() => dispatch(setMode("solve"))} highlight>SOLVE!</ToolsButton>
             </ToolsBox>
