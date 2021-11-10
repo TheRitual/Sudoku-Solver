@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import alpha from "color-alpha";
 
 export const Grid = styled.div`
@@ -49,20 +49,26 @@ export const FieldButton = styled.button`
     color: ${({ theme }) => theme.colors.diagramNumber};
     text-shadow: 0px 0px 15px ${({ theme }) => theme.colors.diagramNumberShadow};
 
-    ${({ y, activeY, theme }) => y === activeY && "background-color:" + theme.colors.buttonLineHover + ";"}
-    ${({ x, activeX, theme }) => x === activeX && "background-color:" + theme.colors.buttonLineHover + ";"}
-    ${({ x, y, activeX, activeY, theme }) => {
-        if (y === activeY && x === activeX) {
-            return `
+    ${({ clickedRow, theme }) => clickedRow && "background-color:" + theme.colors.buttonLineHover + ";"}
+    ${({ clickedCol, theme }) => clickedCol && "background-color:" + theme.colors.buttonLineHover + ";"}
+    ${({ isActive, theme }) => {
+        return isActive ? `
             background-color: ${theme.colors.buttonHover};
             cursor: pointer;
             border-radius: 10px;
             transform: scale(1.2);`
-        }
-        return "";
+            :
+            "";
     }};
 
+    ${({ isLastClicked, theme }) => isLastClicked && "border: 3px groove " + alpha(theme.colors.lastClickedButton, 0.3) + ";"}
+
+    ${({ isConflict, theme }) => isConflict && css`
+        color: ${theme.colors.buttonConflict};
+        text-shadow: 0px 0px 5px ${theme.colors.buttonConflict};
+    `}
+
     &:focus {
-        box-shadow: 0px 0px 10px 3px ${({ theme }) => theme.colors.focus};
-    }
+    box-shadow: 0px 0px 10px 3px ${({ theme }) => theme.colors.focus};
+}
 `;

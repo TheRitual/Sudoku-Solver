@@ -36,6 +36,7 @@ export const theme = {
         buttonHover: pallette.cranberry,
         buttonLineHover: pallette.indigoDarker,
         buttonConflict: pallette.siren,
+        lastClickedButton: pallette.parisM,
         numberBackground: pallette.siren,
         number: pallette.white,
         amount: pallette.cranberry,

@@ -36,11 +36,11 @@ export const isConflict = (array, field, number) => {
 }
 
 export const getConflicts = (array, field, number) => {
+    let result = [];
     const row = getRow(array, field.y);
-    const rowConflict = row.includes(number) ? { x: row.indexOf(number), y: field.y } : null;
+    row.includes(number) && result.push({ x: row.indexOf(number), y: field.y });
     const col = getColumn(array, field.x);
-    const colConflict = col.includes(number) ? { x: field.x, y: col.indexOf(number) } : null;
+    col.includes(number) && result.push({ x: field.x, y: col.indexOf(number) });
     const group = getGroup(array, field);
-    const groupConflict = group.includes(number) ? null : null;
-    return { row: rowConflict, col: colConflict, group: groupConflict };
+    return result;
 }

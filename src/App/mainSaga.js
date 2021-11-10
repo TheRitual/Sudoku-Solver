@@ -1,4 +1,4 @@
-import { clearAll, insertNumber, selectActiveField, selectActiveNumber, selectGiven, selectLastKey, setActiveField, setActiveNumber, setConflicts, setGiven, setLastKey, setNumbers } from "./mainSlice";
+import { clearAll, insertNumber, selectActiveField, selectActiveNumber, selectGiven, selectLastKey, setActiveField, setActiveNumber, setConflicts, setGiven, setLastClicked, setLastKey, setNumbers } from "./mainSlice";
 import { select, put, takeLatest, call } from 'redux-saga/effects'
 import { count, getConflicts, isConflict } from '../utils/arrayFunctions'
 
@@ -45,7 +45,9 @@ function* keyReaction() {
 
 function* applyingNumber() {
     const activeField = yield select(selectActiveField);
+    yield put(setLastClicked(activeField));
     const activeNumber = yield select(selectActiveNumber);
+    yield put(setConflicts(null));
     const given = yield select(selectGiven);
     const oldNumber = yield given[activeField.x][activeField.y];
     const newNumber = yield activeNumber - 1;

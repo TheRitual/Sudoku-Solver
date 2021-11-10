@@ -1,6 +1,6 @@
 import { Field, Grid, FieldButton } from "./styled";
 import { useDispatch } from "react-redux";
-import { insertNumber, selectActiveField, selectGiven, setActiveField } from "../../App/mainSlice";
+import { insertNumber, selectActiveField, selectConflicts, selectGiven, selectLastClicked, setActiveField } from "../../App/mainSlice";
 import { useSelector } from "react-redux";
 import React, { useEffect, useRef } from "react";
 
@@ -8,7 +8,8 @@ const Diagram = () => {
     const grid = useRef(null);
     const dispatch = useDispatch();
     const activeField = useSelector(selectActiveField);
-    //const conflicts = useSelector(selectConflicts);
+    const lastClicked = useSelector(selectLastClicked);
+    const conflicts = useSelector(selectConflicts);
     const given = useSelector(selectGiven);
 
     useEffect(() => {
@@ -25,6 +26,10 @@ const Diagram = () => {
         dispatch(insertNumber());
     }
 
+    const isConflict = (x, y) => {
+        return conflicts && conflicts.some(conflict => conflict.x === x);
+    }
+
     return (
         <Grid ref={grid}>
             {
@@ -33,12 +38,15 @@ const Diagram = () => {
                         return (
                             <Field key={ix + "-" + iy} x={ix} y={iy}>
                                 <FieldButton
-                                    activeX={activeField.x}
                                     onMouseOver={(e) => e.target.focus()}
-                                    activeY={activeField.y}
                                     onClick={() => applyNumber()}
                                     x={ix}
                                     y={iy}
+                                    clickedRow={lastClicked.x === ix}
+                                    clickedCol={lastClicked.y === iy}
+                                    isLastClicked={lastClicked && ix === lastClicked.x && iy === lastClicked.y}
+                                    isConflict={isConflict(ix, iy)}
+                                    isActive={ix === activeField.x && iy === activeField.y}
                                     onFocus={() => dispatch(setActiveField({ x: ix, y: iy }))}>
                                     {x}
                                 </FieldButton>

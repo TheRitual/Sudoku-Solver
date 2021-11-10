@@ -5,6 +5,7 @@ const mainSlice = createSlice({
     initialState: {
         given: new Array(9).fill(null).map(() => new Array(9).fill(null)),
         activeField: { x: 0, y: 0 },
+        lastClicked: null,
         numbers: new Array(9).fill(9),
         activeNumber: 1,
         lastKey: null,
@@ -16,6 +17,9 @@ const mainSlice = createSlice({
         },
         setActiveField: (state, { payload: field }) => {
             state.activeField = field;
+        },
+        setLastClicked: (state, { payload: field }) => {
+            state.lastClicked = field;
         },
         setLastKey: (state, { payload: key }) => {
             state.lastKey = key;
@@ -46,12 +50,14 @@ export const {
     insertNumber,
     clearAll,
     setConflicts,
+    setLastClicked,
 } = mainSlice.actions;
 
 export const selectSudokuSolverSaga = state => state.sudokuSolver;
 export const selectGiven = state => selectSudokuSolverSaga(state).given;
 export const selectNumbers = state => selectSudokuSolverSaga(state).numbers;
 export const selectActiveField = state => selectSudokuSolverSaga(state).activeField;
+export const selectLastClicked = state => selectSudokuSolverSaga(state).lastClicked;
 export const selectActiveNumber = state => selectSudokuSolverSaga(state).activeNumber;
 export const selectLastKey = state => selectSudokuSolverSaga(state).lastKey;
 export const selectConflicts = state => selectSudokuSolverSaga(state).conflicts;
