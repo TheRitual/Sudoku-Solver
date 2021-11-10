@@ -6,6 +6,8 @@ function* keyReaction() {
     const key = yield select(selectLastKey);
     const activeField = yield select(selectActiveField);
     switch (key) {
+        case "0":
+            yield put(setActiveNumber(0)); break;
         case "1":
             yield put(setActiveNumber(1)); break;
         case "2":
@@ -53,7 +55,7 @@ function* applyingNumber() {
     const newNumber = yield activeNumber - 1;
     const isOk = yield call(isConflict, given, activeField, activeNumber);
     if (isOk) {
-        yield put(setGiven({ x: activeField.x, y: activeField.y, value: activeNumber }));
+        yield put(setGiven({ x: activeField.x, y: activeField.y, value: activeNumber === 0 ? null : activeNumber }));
         const changedGiven = yield select(selectGiven);
         const newAmount = yield 9 - count(changedGiven, activeNumber);
         yield put(setNumbers({ index: newNumber, value: newAmount }));

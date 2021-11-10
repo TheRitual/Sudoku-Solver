@@ -3,7 +3,7 @@ import alpha from "color-alpha";
 
 export const NumbersGrid = styled.div`
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
+    grid-template-columns: repeat(10, 1fr);
     align-content: stretch;
     justify-content: stretch;
     width: 100%;

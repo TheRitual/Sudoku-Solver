@@ -62,7 +62,7 @@ export const FieldButton = styled.button`
             font-size: 0px;
             &::before {
                 font-size: 25px;
-                content: "${({ activeNumber }) => activeNumber}";
+                content: "${({ activeNumber }) => activeNumber === 0 ? '⛒' : activeNumber}";
                 ${numberMatch ?
                     css`color: ${({ theme }) => theme.colors.matchingNumber};`
                     :

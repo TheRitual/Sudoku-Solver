@@ -27,6 +27,11 @@ const Numbers = () => {
                     )
                 })
             }
+            <NumberField active={activeNumber} num={0} onMouseEnter={(e) => e.target.focus()} onClick={() => onNumberSelect(0)}>
+                            <Number>
+                                &#9938;
+                            </Number>
+            </NumberField>
         </NumbersGrid>
     );
 }
