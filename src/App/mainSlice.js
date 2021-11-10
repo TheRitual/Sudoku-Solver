@@ -10,7 +10,7 @@ const mainSlice = createSlice({
         activeNumber: 1,
         lastKey: null,
         conflicts: null,
-        mode: "primaryNumbers",
+        mode: "default",
     },
     reducers: {
         setGiven: (state, { payload: change }) => {

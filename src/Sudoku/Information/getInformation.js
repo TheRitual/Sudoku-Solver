@@ -1,6 +1,7 @@
 export const getInformationText = (option) => {
     switch (option) {
-        case "primaryNumbers": return "Mode: Set Primary Numbers";
+        case "default": return "Mode: Set Default Numbers";
+        case "custom": return "Mode: Set Custom Numbers";
         default: return "Welcome to Sudoku Solver"
     }
 }

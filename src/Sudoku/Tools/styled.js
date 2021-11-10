@@ -1,5 +1,5 @@
 import alpha from "color-alpha";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const ToolsBox = styled.div`
     display: flex;
@@ -32,6 +32,16 @@ export const ToolsButton = styled.button`
     transition: 0.2s;
     cursor: pointer;
     font-size: 19px;
+
+    ${({ theme, highlight }) => highlight && css`
+        background-color: ${theme.colors.tools.buttons.highlightBackground};
+        color: ${theme.colors.tools.buttons.highlightText};
+    `};
+
+    ${({ theme, isActive }) => isActive && css`
+        background-color: ${theme.colors.tools.buttons.activeBackground};
+        color: ${theme.colors.tools.buttons.activeText};
+    `};
 
     &:hover {
         transform: scale(1.03);

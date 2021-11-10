@@ -69,7 +69,11 @@ export const theme = {
             background: pallette.indigo,
             border: pallette.sanJuan,
             buttons: {
+                activeBackground: pallette.ceriseRed,
+                activeText: pallette.siren,
                 background: pallette.amethyst,
+                highlightBackground: pallette.seance,
+                highlightText: pallette.purpleHeart,
                 text: pallette.parisM,
             }
         }
