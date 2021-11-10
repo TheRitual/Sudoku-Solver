@@ -1,6 +1,6 @@
 import { clearAll, insertNumber, selectActiveField, selectActiveNumber, selectGiven, selectLastKey, setActiveField, setActiveNumber, setConflicts, setGiven, setLastKey, setNumbers } from "./mainSlice";
 import { select, put, takeLatest, call } from 'redux-saga/effects'
-import { count, getConflicts, getGroupXY, isConflict } from '../utils/arrayFunctions'
+import { count, getConflicts, isConflict } from '../utils/arrayFunctions'
 
 function* keyReaction() {
     const key = yield select(selectLastKey);
@@ -60,13 +60,7 @@ function* applyingNumber() {
             yield put(setNumbers({ index: oldNumber - 1, value: oldAmount }));
         }
     } else {
-        const areConflicts = yield getConflicts(given, activeField, activeNumber);
-        const groupXY = yield call(getGroupXY, activeField);
-        const conflicts = yield {
-            row: areConflicts.row ? activeField.y : null,
-            col: areConflicts.col ? activeField.x : null,
-            group: areConflicts.group ? groupXY : null,
-        }
+        const conflicts = yield getConflicts(given, activeField, activeNumber);
         yield put(setConflicts(conflicts));
     }
 }

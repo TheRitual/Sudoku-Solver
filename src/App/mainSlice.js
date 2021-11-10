@@ -8,7 +8,7 @@ const mainSlice = createSlice({
         numbers: new Array(9).fill(9),
         activeNumber: 1,
         lastKey: null,
-        conflicts: {col: null, row: null, group: null},
+        conflicts: null,
     },
     reducers: {
         setGiven: (state, { payload: change }) => {

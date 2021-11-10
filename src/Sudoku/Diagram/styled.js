@@ -1,17 +1,5 @@
-import styled, { keyframes, css } from "styled-components";
+import styled from "styled-components";
 import alpha from "color-alpha";
-
-const conflictAnimationRow = (props) => keyframes`
-    0% {
-        box-shadow: inset 0px 0px 20px 20px ${props.theme.colors.buttonConflict}};
-    }
-    80% {
-        box-shadow: inset 0px 0px 10px 10px ${props.theme.colors.buttonConflict}};
-    }
-    100% {
-        box-shadow: inset 0px 0px 0 0 ${props.theme.colors.buttonConflict}};
-    }
-`;
 
 export const Grid = styled.div`
     display: grid;
@@ -73,9 +61,6 @@ export const FieldButton = styled.button`
         }
         return "";
     }};
-
-    ${({ y, conflictRow }) => y === conflictRow && css`animation: 1s ${conflictAnimationRow};`}
-    ${({ x, conflictCol }) => x === conflictCol && css`animation: 1s ${conflictAnimationRow};`}
 
     &:focus {
         box-shadow: 0px 0px 10px 3px ${({ theme }) => theme.colors.focus};
