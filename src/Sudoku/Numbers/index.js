@@ -16,7 +16,7 @@ const Numbers = () => {
                 numbers.map((amount, index) => {
                     const number = index + 1;
                     return (
-                        <NumberField active={activeNumber} key={index} num={number} onMouseEnter={(e) => e.target.focus()} onClick={() => onNumberSelect(number)}>
+                        <NumberField isActive={activeNumber === number} key={index} num={number} onMouseEnter={(e) => e.target.focus()} onClick={() => onNumberSelect(number)}>
                             <Number>
                                 {number}
                             </Number>
@@ -27,7 +27,7 @@ const Numbers = () => {
                     )
                 })
             }
-            <NumberField active={activeNumber} num={0} onMouseEnter={(e) => e.target.focus()} onClick={() => onNumberSelect(0)}>
+            <NumberField isActive={activeNumber === 0} num={0} onMouseEnter={(e) => e.target.focus()} onClick={() => onNumberSelect(0)}>
                             <Number>
                                 &#9938;
                             </Number>

@@ -9,11 +9,11 @@ export const ToolsBox = styled.div`
     gap: 5px;
     width: 100%;
     min-height: 13vh;
-    background-color: ${({ theme }) => theme.colors.diagram};
-    box-shadow: 0px 0px 15px 3px ${({ theme }) => alpha(theme.colors.shadow, 0.6)};
+    background-color: ${({ theme }) => theme.colors.tools.background};
+    box-shadow: 0px 0px 15px 3px ${({ theme }) => alpha(theme.colors.global.shadow, 0.6)};
     border-radius: 10px;
     transition: 0.3s;
-    border: 3px solid ${({ theme }) => theme.colors.diagramBorder};
+    border: 3px solid ${({ theme }) => theme.colors.tools.border};
     padding: 10px;
     margin-bottom: 10px;
 
@@ -27,8 +27,8 @@ export const ToolsButton = styled.button`
     margin: 0;
     border: 0;
     border-radius: 8px;
-    background-color: ${({ theme }) => theme.colors.toolsButton};
-    color: ${({ theme }) => theme.colors.toolsButtonText};
+    background-color: ${({ theme }) => theme.colors.tools.buttons.background};
+    color: ${({ theme }) => theme.colors.tools.buttons.text};
     transition: 0.2s;
     cursor: pointer;
     font-size: 19px;

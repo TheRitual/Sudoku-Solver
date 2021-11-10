@@ -14,7 +14,7 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        background-color: ${({ theme }) => theme.colors.bodyBackground};
+        background-color: ${({ theme }) => theme.colors.global.background};
         font-family: 'Irish Grover', cursive;
         padding-bottom: 40px;
     }

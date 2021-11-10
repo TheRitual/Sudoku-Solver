@@ -8,11 +8,11 @@ export const Grid = styled.div`
     grid-auto-flow: column;
     width: 100%;
     height: 95vh;
-    background-color: ${({ theme }) => theme.colors.diagram};
-    box-shadow: 0px 0px 15px 3px ${({ theme }) => alpha(theme.colors.shadow, 0.6)};
+    background-color: ${({ theme }) => theme.colors.diagram.background};
+    box-shadow: 0px 0px 15px 3px ${({ theme }) => alpha(theme.colors.global.shadow, 0.6)};
     border-radius: 10px;
     transition: 0.3s;
-    border: 3px solid ${({ theme }) => theme.colors.diagramBorder};
+    border: 3px solid ${({ theme }) => theme.colors.diagram.border};
     padding: 20px;
     margin-bottom: 30px;
     cursor: cell;
@@ -23,15 +23,15 @@ export const Grid = styled.div`
 `;
 
 export const Field = styled.div`
-    background-color: ${({ theme }) => theme.colors.field};
-    border: dashed 1px ${({ theme }) => theme.colors.fieldBorder};
+    background-color: ${({ theme }) => theme.colors.diagram.field.background};
+    border: dashed 1px ${({ theme }) => theme.colors.diagram.field.border};
     margin: 0px;
     padding: 2px;
     cursor: cell;
-    ${({ x, theme }) => x % 3 === 2 && "border-right: solid 2px " + theme.colors.fieldBorderGroup + ";"}
-    ${({ x, theme }) => x % 3 === 0 && "border-left: solid 2px " + theme.colors.fieldBorderGroup + ";"}
-    ${({ y, theme }) => y % 3 === 2 && "border-bottom: solid 2px " + theme.colors.fieldBorderGroup + ";"}
-    ${({ y, theme }) => y % 3 === 0 && "border-top: solid 2px " + theme.colors.fieldBorderGroup + ";"}
+    ${({ x, theme }) => x % 3 === 2 && "border-right: solid 2px " + theme.colors.diagram.groupBorder + ";"}
+    ${({ x, theme }) => x % 3 === 0 && "border-left: solid 2px " + theme.colors.diagram.groupBorder + ";"}
+    ${({ y, theme }) => y % 3 === 2 && "border-bottom: solid 2px " + theme.colors.diagram.groupBorder + ";"}
+    ${({ y, theme }) => y % 3 === 0 && "border-top: solid 2px " + theme.colors.diagram.groupBorder + ";"}
     ${({ y }) => y === 0 && "border-top: 0;"}
     ${({ y }) => y === 8 && "border-bottom: 0;"}
     ${({ x }) => x === 0 && "border-left: 0;"}
@@ -44,19 +44,19 @@ export const FieldButton = styled.button`
     width: 100%;
     height: 100%;
     border-radius: 8px;
-    background-color: ${({ theme }) => theme.colors.button};
+    background-color: ${({ theme }) => theme.colors.diagram.field.button.background};
     outline: none;
     transition: 0.2s;
     font-size: 25px;
-    color: ${({ theme }) => theme.colors.diagramNumber};
-    text-shadow: 0px 0px 15px ${({ theme }) => theme.colors.diagramNumberShadow};
+    color: ${({ theme }) => theme.colors.diagram.number};
+    text-shadow: 0px 0px 15px ${({ theme }) => theme.colors.diagram.field.button.numberShadow};
     cursor: cell;
 
-    ${({ clickedRow, theme }) => clickedRow && "background-color:" + theme.colors.buttonLineHover + ";"}
-    ${({ clickedCol, theme }) => clickedCol && "background-color:" + theme.colors.buttonLineHover + ";"}
+    ${({ clickedRow, theme }) => clickedRow && "background-color:" + theme.colors.diagram.field.button.cross + ";"}
+    ${({ clickedCol, theme }) => clickedCol && "background-color:" + theme.colors.diagram.field.button.cross + ";"}
     ${({ isActive, numberMatch, theme }) => {
-        return isActive ? css`
-            background-color: ${theme.colors.activeButton};
+        return isActive && css`
+            background-color: ${theme.colors.diagram.field.button.activeBackground};
             border-radius: 10px;
             transform: scale(1.2);
             font-size: 0px;
@@ -64,27 +64,25 @@ export const FieldButton = styled.button`
                 font-size: 25px;
                 content: "${({ activeNumber }) => activeNumber === 0 ? '⛒' : activeNumber}";
                 ${numberMatch ?
-                    css`color: ${({ theme }) => theme.colors.matchingNumber};`
-                    :
-                    css`color: ${({ theme }) => theme.colors.activeButtonText};`
-                    };
-            }
-            `
-            :
-            "";
+                css`color: ${({ theme }) => theme.colors.diagram.field.button.activeMatchingText};`
+                :
+                css`color: ${({ theme }) => theme.colors.diagram.field.button.activeText};`
+            };
+            }`
     }};
 
-    ${({ isLastClicked, theme }) => isLastClicked && "border: 3px groove " + alpha(theme.colors.lastClickedButton, 0.3) + ";"}
+    ${({ isLastClicked, theme }) => isLastClicked && "border: 3px groove " + alpha(theme.colors.diagram.field.button.lastClicked, 0.3) + ";"}
 
     ${({ isConflict, theme }) => isConflict && css`
-        color: ${theme.colors.buttonConflict};
-        text-shadow:    -1px -1px 0 ${theme.colors.buttonConflictOutline},
-                        1px -1px 0 ${theme.colors.buttonConflictOutline},
-                        -1px 1px 0 ${theme.colors.buttonConflictOutline},
-                        1px 1px 0 ${theme.colors.buttonConflictOutline};
+        color: ${theme.colors.diagram.field.button.conflictText};
+        text-shadow:    -1px -1px 0 ${theme.colors.diagram.field.button.conflictOutline},
+                        1px -1px 0 ${theme.colors.diagram.field.button.conflictOutline},
+                        -1px 1px 0 ${theme.colors.diagram.field.button.conflictOutline},
+                        1px 1px 0 ${theme.colors.diagram.field.button.conflictOutline};
+        background-color: ${alpha(theme.colors.diagram.field.button.conflictBackground, 0.5)};
     `}
 
     &:focus {
-        box-shadow: 0px 0px 10px 3px ${({ theme }) => theme.colors.focus};
+        box-shadow: 0px 0px 10px 3px ${({ theme }) => theme.colors.diagram.field.button.focusedShadow};
     }
 `;

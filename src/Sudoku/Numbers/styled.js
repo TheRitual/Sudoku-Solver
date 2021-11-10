@@ -8,11 +8,11 @@ export const NumbersGrid = styled.div`
     justify-content: stretch;
     width: 100%;
     min-height: 13vh;
-    background-color: ${({ theme }) => theme.colors.diagram};
-    box-shadow: 0px 0px 15px 3px ${({ theme }) => alpha(theme.colors.shadow, 0.6)};
+    background-color: ${({ theme }) => theme.colors.numbers.background};
+    box-shadow: 0px 0px 15px 3px ${({ theme }) => alpha(theme.colors.global.shadow, 0.6)};
     border-radius: 10px;
     transition: 0.3s;
-    border: 3px solid ${({ theme }) => theme.colors.diagramBorder};
+    border: 3px solid ${({ theme }) => theme.colors.numbers.border};
     padding: 10px;
     margin-bottom: 10px;
 
@@ -25,25 +25,27 @@ export const NumberField = styled.button`
     margin: 3px;
     border: 0;
     border-radius: 8px;
-    background-color: ${({ theme }) => theme.colors.numberBackground};
-    ${({ theme, active, num }) => active === num && "background-color:" + theme.colors.activeNumber + ";"};
+    background-color: ${({ theme }) => theme.colors.numbers.field.background};
+    ${({ theme, isActive }) => isActive && "background-color:" + theme.colors.numbers.field.activeBackground + ";"};
     outline: none;
     transition: 0.2s;
     cursor: pointer;
 
     &:focus {
-        box-shadow: 0px 0px 15px 5px ${({ theme }) => theme.colors.focus};
+        box-shadow:
+        0px 0px 20px 5px ${({ theme }) => theme.colors.numbers.field.focusedShadow},
+        0px 0px 10px 3px ${({ theme }) => theme.colors.numbers.field.focusedShadow};
     }
 `;
 
 export const Number = styled.span`
     font-size: 25px;
-    color: ${({ theme }) => theme.colors.number};
+    color: ${({ theme }) => theme.colors.numbers.field.text};
 `;
 
 export const Amount = styled.span`
     font-size: 12px;
-    color: ${({ theme }) => theme.colors.amount};
+    color: ${({ theme }) => theme.colors.numbers.field.subText};
     vertical-align: top;
     
 `;

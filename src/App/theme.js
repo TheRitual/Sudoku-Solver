@@ -21,36 +21,58 @@ const pallette = {
 
 export const theme = {
     colors: {
+        global: {
+            background: pallette.indigoLight,
+            shadow: pallette.deepSapphire,
+            title: pallette.white,
+        },
+        diagram: {
+            background: pallette.indigo,
+            border: pallette.sanJuan,
+            groupBorder: pallette.deepSapphire,
+            number: pallette.deepSapphire,
+            field: {
+                background: "transparent",
+                border: pallette.sanJuan,
+                button: {
+                    activeBackground: pallette.cranberry,
+                    activeMatchingText: pallette.parisM,
+                    activeText: pallette.camelot,
+                    background: pallette.indigoLight,
+                    conflictBackground: pallette.cranberry,
+                    conflictOutline: pallette.amethyst,
+                    conflictText: pallette.siren,
+                    cross: pallette.indigoDarker,
+                    focusedShadow: pallette.cranberry,
+                    lastClicked: pallette.parisM,
+                    numberShadow: pallette.funBlue,
+                },
+            },
+        },
         information: {
             background: pallette.amethyst,
             border: pallette.sanJuan,
             text: pallette.parisM,
         },
-        bodyBackground: pallette.indigoLight,
-        title: pallette.white,
-        shadow: pallette.deepSapphire,
-        focus: pallette.cranberry,
-        diagram: pallette.indigo,
-        diagramBorder: pallette.sanJuan,
-        diagramNumber: pallette.deepSapphire,
-        diagramNumberShadow: pallette.funBlue,
-        field: "transparent",
-        fieldBorder: pallette.sanJuan,
-        fieldBorderGroup: pallette.deepSapphire,
-        button: pallette.indigoLight,
-        activeButton: pallette.cranberry,
-        activeButtonText: pallette.camelot,
-        matchingNumber: pallette.parisM,
-        buttonLineHover: pallette.indigoDarker,
-        buttonConflict: pallette.siren,
-        buttonConflictOutline: pallette.amethyst,
-        lastClickedButton: pallette.parisM,
-        numberBackground: pallette.siren,
-        number: pallette.white,
-        amount: pallette.cranberry,
-        activeNumber: pallette.parisM,
-        toolsButton: pallette.amethyst,
-        toolsButtonText: pallette.parisM,
+        numbers: {
+            background: pallette.indigo,
+            border: pallette.sanJuan,
+            field: {
+                activeBackground: pallette.parisM,
+                background: pallette.siren,
+                focusedShadow: pallette.cranberry,
+                text: pallette.white,
+                subText: pallette.cranberry,
+            }
+        },
+        tools: {
+            background: pallette.indigo,
+            border: pallette.sanJuan,
+            buttons: {
+                background: pallette.amethyst,
+                text: pallette.parisM,
+            }
+        }
     },
     breakpoints: {
         mobile: "320px",
