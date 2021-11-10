@@ -15,6 +15,7 @@ export const Grid = styled.div`
     border: 3px solid ${({ theme }) => theme.colors.diagramBorder};
     padding: 20px;
     margin-bottom: 30px;
+    cursor: cell;
 
     &:hover {
         border-radius: 15px;
@@ -26,6 +27,7 @@ export const Field = styled.div`
     border: dashed 1px ${({ theme }) => theme.colors.fieldBorder};
     margin: 0px;
     padding: 2px;
+    cursor: cell;
     ${({ x, theme }) => x % 3 === 2 && "border-right: solid 2px " + theme.colors.fieldBorderGroup + ";"}
     ${({ x, theme }) => x % 3 === 0 && "border-left: solid 2px " + theme.colors.fieldBorderGroup + ";"}
     ${({ y, theme }) => y % 3 === 2 && "border-bottom: solid 2px " + theme.colors.fieldBorderGroup + ";"}
@@ -48,13 +50,13 @@ export const FieldButton = styled.button`
     font-size: 25px;
     color: ${({ theme }) => theme.colors.diagramNumber};
     text-shadow: 0px 0px 15px ${({ theme }) => theme.colors.diagramNumberShadow};
+    cursor: cell;
 
     ${({ clickedRow, theme }) => clickedRow && "background-color:" + theme.colors.buttonLineHover + ";"}
     ${({ clickedCol, theme }) => clickedCol && "background-color:" + theme.colors.buttonLineHover + ";"}
     ${({ isActive, numberMatch, theme }) => {
         return isActive ? css`
             background-color: ${theme.colors.activeButton};
-            cursor: pointer;
             border-radius: 10px;
             transform: scale(1.2);
             font-size: 0px;

@@ -21,6 +21,11 @@ const pallette = {
 
 export const theme = {
     colors: {
+        information: {
+            background: pallette.amethyst,
+            border: pallette.sanJuan,
+            text: pallette.parisM,
+        },
         bodyBackground: pallette.indigoLight,
         title: pallette.white,
         shadow: pallette.deepSapphire,
