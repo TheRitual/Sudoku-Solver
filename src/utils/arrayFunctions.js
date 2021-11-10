@@ -26,8 +26,6 @@ export const getGroup = (array, field) => {
     return group;
 }
 
-
-
 export const isConflict = (array, field, number) => {
     const row = getRow(array, field.y);
     const col = getColumn(array, field.x);
@@ -42,5 +40,10 @@ export const getConflicts = (array, field, number) => {
     const col = getColumn(array, field.x);
     col.includes(number) && result.push({ x: field.x, y: col.indexOf(number) });
     const group = getGroup(array, field);
+    const numberIndex = group.indexOf(number);
+    const groupXY = getGroupXY(field);
+    const addX = Math.floor(numberIndex / 3);
+    const addY = numberIndex % 3;
+    group.includes(number) && result.push({ x: groupXY.x * 3 + addX, y: groupXY.y * 3 + addY });
     return result;
 }
