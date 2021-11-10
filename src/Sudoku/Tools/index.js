@@ -14,7 +14,8 @@ const Tools = () => {
                 <ToolsButton isActive={mode === "solve"} onClick={() => dispatch(setMode("solve"))} highlight>SOLVE!</ToolsButton>
             </ToolsBox>
             <ToolsBox>
-                <ToolsButton onClick={() => dispatch(clearAll())}>Clear Sudoku</ToolsButton>
+                <ToolsButton onClick={() => dispatch(clearAll())}>Clear Custom</ToolsButton>
+                <ToolsButton onClick={() => dispatch(clearAll())}>Clear All</ToolsButton>
             </ToolsBox>
         </>
     );
