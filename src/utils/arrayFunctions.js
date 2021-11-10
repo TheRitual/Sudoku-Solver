@@ -47,3 +47,12 @@ export const getConflicts = (array, field, number) => {
     group.includes(number) && result.push({ x: groupXY.x * 3 + addX, y: groupXY.y * 3 + addY });
     return result;
 }
+
+export const combineArrays = (main, additional) => {
+    const result = main.map((col, x) => {
+        return col.map((row, y) => {
+            return main[x][y] === null ? additional[x][y] : main[x][y];
+        });;
+    });
+    return result;
+}

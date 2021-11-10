@@ -1,6 +1,6 @@
-import { clearAll, insertNumber, selectActiveField, selectActiveNumber, selectGiven, selectLastKey, setActiveField, setActiveNumber, setConflicts, setGiven, setLastClicked, setLastKey, setNumbers } from "./mainSlice";
+import { clearAll, insertNumber, selectActiveField, selectActiveNumber, selectCustom, selectGiven, selectLastKey, selectMode, setActiveField, setActiveNumber, setConflicts, setCustom, setGiven, setLastClicked, setLastKey, setMode, setNumbers } from "./mainSlice";
 import { select, put, takeLatest, call } from 'redux-saga/effects'
-import { count, getConflicts, isConflict } from '../utils/arrayFunctions'
+import { combineArrays, count, getConflicts, isConflict } from '../utils/arrayFunctions'
 
 function* keyReaction() {
     const key = yield select(selectLastKey);
@@ -28,6 +28,10 @@ function* keyReaction() {
             yield put(setActiveNumber(9)); break;
         case "c":
             yield put(clearAll()); break;
+        case "o":
+            yield put(setMode("default")); break;
+        case "p":
+            yield put(setMode("custom")); break;
         case "ArrowUp":
         case "w":
             yield activeField.y > 0 && put(setActiveField({ x: activeField.x, y: activeField.y - 1 })); break;
@@ -42,7 +46,6 @@ function* keyReaction() {
             yield activeField.x < 8 && put(setActiveField({ x: activeField.x + 1, y: activeField.y })); break;
         default: break;
     }
-    // const x = yield call(normal function);
 }
 
 function* applyingNumber() {
@@ -51,20 +54,33 @@ function* applyingNumber() {
     const activeNumber = yield select(selectActiveNumber);
     yield put(setConflicts(null));
     const given = yield select(selectGiven);
-    const oldNumber = yield given[activeField.x][activeField.y];
+    const custom = yield select(selectCustom);
+    const combined = yield call(combineArrays, given, custom);
+    const mode = yield select(selectMode);
+    const oldNumber = yield mode === "default" ? given[activeField.x][activeField.y] : custom[activeField.x][activeField.y];
     const newNumber = yield activeNumber - 1;
-    const isOk = yield call(isConflict, given, activeField, activeNumber);
+    const isOk = yield call(isConflict, combined, activeField, activeNumber);
     if (isOk) {
-        yield put(setGiven({ x: activeField.x, y: activeField.y, value: activeNumber === 0 ? null : activeNumber }));
-        const changedGiven = yield select(selectGiven);
-        const newAmount = yield 9 - count(changedGiven, activeNumber);
+        const val = yield { x: activeField.x, y: activeField.y, value: activeNumber === 0 ? null : activeNumber };
+        console.log(mode, val);
+        if (mode === "default") {
+            yield put(setGiven(val));
+            const clearCustomField = yield { x: activeField.x, y: activeField.y, value: null };
+            yield put(setCustom(clearCustomField));
+        } else {
+            yield given[activeField.x][activeField.y] === null && put(setCustom(val));
+        }
+        const newGiven = yield select(selectGiven);
+        const newCustom = yield select(selectCustom);
+        const changedArray = yield call(combineArrays, newGiven, newCustom);
+        const newAmount = yield 9 - count(changedArray, activeNumber);
         yield put(setNumbers({ index: newNumber, value: newAmount }));
         if (oldNumber) {
-            const oldAmount = yield 9 - count(changedGiven, oldNumber);
+            const oldAmount = yield 9 - count(changedArray, oldNumber);
             yield put(setNumbers({ index: oldNumber - 1, value: oldAmount }));
         }
     } else {
-        const conflicts = yield getConflicts(given, activeField, activeNumber);
+        const conflicts = yield getConflicts(combined, activeField, activeNumber);
         yield put(setConflicts(conflicts));
     }
 }
@@ -72,5 +88,4 @@ function* applyingNumber() {
 export function* mainSaga() {
     yield takeLatest(setLastKey.type, keyReaction);
     yield takeLatest(insertNumber.type, applyingNumber);
-    //yield debounce(<time>, <action>.type, <generator>);
 }

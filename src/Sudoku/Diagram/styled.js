@@ -48,7 +48,7 @@ export const FieldButton = styled.button`
     outline: none;
     transition: 0.2s;
     font-size: 25px;
-    color: ${({ theme }) => theme.colors.diagram.number};
+    color: ${({ theme }) => theme.colors.diagram.customNumber};
     text-shadow: 0px 0px 15px ${({ theme }) => theme.colors.diagram.field.button.numberShadow};
     cursor: cell;
 
@@ -69,9 +69,16 @@ export const FieldButton = styled.button`
                 css`color: ${({ theme }) => theme.colors.diagram.field.button.activeText};`
             };
             }`
-    }};
+    }
+    };
 
     ${({ isLastClicked, theme }) => isLastClicked && "border: 3px groove " + alpha(theme.colors.diagram.field.button.lastClicked, 0.3) + ";"}
+
+    ${({ isGiven }) => isGiven && css`
+            color: ${({ theme }) => theme.colors.diagram.givenNumber};
+            background-color: ${({ theme }) => theme.colors.diagram.givenBackground};
+        `
+    }
 
     ${({ isConflict, theme }) => isConflict && css`
         color: ${theme.colors.diagram.field.button.conflictText};
@@ -83,6 +90,6 @@ export const FieldButton = styled.button`
     `}
 
     &:focus {
-        box-shadow: 0px 0px 10px 3px ${({ theme }) => theme.colors.diagram.field.button.focusedShadow};
-    }
+    box-shadow: 0px 0px 10px 3px ${({ theme }) => theme.colors.diagram.field.button.focusedShadow};
+}
 `;

@@ -29,8 +29,10 @@ export const theme = {
         diagram: {
             background: pallette.indigo,
             border: pallette.sanJuan,
+            customNumber: pallette.deepSapphire,
+            givenNumber: pallette.parisM,
+            givenBackground: pallette.amethyst,
             groupBorder: pallette.deepSapphire,
-            number: pallette.deepSapphire,
             field: {
                 background: "transparent",
                 border: pallette.sanJuan,
