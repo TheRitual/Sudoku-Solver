@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { clearAll, selectMode, setMode, solve } from "../../App/mainSlice";
+import { clearAll, clearCustom, selectMode, setMode, solve } from "../../App/mainSlice";
 import { ToolsBox, ToolsButton } from "./styled";
 
 const Tools = () => {
@@ -14,7 +14,7 @@ const Tools = () => {
                 <ToolsButton isActive={mode === "solving"} onClick={() => dispatch(solve())} highlight>SOLVE!</ToolsButton>
             </ToolsBox>
             <ToolsBox>
-                <ToolsButton onClick={() => dispatch(clearAll())}>Clear Custom</ToolsButton>
+                <ToolsButton onClick={() => dispatch(clearCustom())}>Clear Custom</ToolsButton>
                 <ToolsButton onClick={() => dispatch(clearAll())}>Clear All</ToolsButton>
             </ToolsBox>
         </>

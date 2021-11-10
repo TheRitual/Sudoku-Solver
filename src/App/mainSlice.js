@@ -40,7 +40,11 @@ const mainSlice = createSlice({
         },
         clearAll: (state) => {
             state.given = new Array(9).fill(null).map(() => new Array(9).fill(null));
+            state.custom = new Array(9).fill(null).map(() => new Array(9).fill(null));
             state.numbers = new Array(9).fill(9);
+        },
+        clearCustom: (state) => {
+            state.custom = new Array(9).fill(null).map(() => new Array(9).fill(null));
         },
         setMode: (state, { payload: mode }) => {
             state.mode = mode;
@@ -62,6 +66,7 @@ export const {
     setActiveNumber,
     insertNumber,
     clearAll,
+    clearCustom,
     setConflicts,
     setLastClicked,
     setMode,

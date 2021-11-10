@@ -1,4 +1,4 @@
-import { clearAll, insertNumber, selectActiveField, selectActiveNumber, selectCustom, selectGiven, selectLastKey, selectMode, setActiveField, setActiveNumber, setConflicts, setCustom, setGiven, setLastClicked, setLastKey, setMode, setNumbers } from "./mainSlice";
+import { clearAll, clearCustom, insertNumber, selectActiveField, selectActiveNumber, selectCustom, selectGiven, selectLastKey, selectMode, setActiveField, setActiveNumber, setConflicts, setCustom, setGiven, setLastClicked, setLastKey, setMode, setNumbers } from "./mainSlice";
 import { select, put, takeLatest, call } from 'redux-saga/effects'
 import { combineArrays, count, getConflicts, isConflict } from '../utils/arrayFunctions'
 
@@ -28,6 +28,8 @@ function* keyReaction() {
             yield put(setActiveNumber(9)); break;
         case "c":
             yield put(clearAll()); break;
+        case "b":
+            yield put(clearCustom()); break;
         case "o":
             yield put(setMode("given")); break;
         case "p":
@@ -63,7 +65,6 @@ function* applyingNumber() {
         const isOk = yield call(isConflict, combined, activeField, activeNumber);
         if (isOk) {
             const val = yield { x: activeField.x, y: activeField.y, value: activeNumber === 0 ? null : activeNumber };
-            console.log(mode, val);
             if (mode === "given") {
                 yield put(setGiven(val));
                 const clearCustomField = yield { x: activeField.x, y: activeField.y, value: null };
@@ -74,10 +75,12 @@ function* applyingNumber() {
             const newGiven = yield select(selectGiven);
             const newCustom = yield select(selectCustom);
             const changedArray = yield call(combineArrays, newGiven, newCustom);
-            const newAmount = yield 9 - count(changedArray, activeNumber);
+            const counted = yield call(count, changedArray, activeNumber);
+            const newAmount = yield 9 - counted;
             yield put(setNumbers({ index: newNumber, value: newAmount }));
             if (oldNumber) {
-                const oldAmount = yield 9 - count(changedArray, oldNumber);
+                const counted = yield call(count, changedArray, oldNumber);
+                const oldAmount = yield 9 - counted;
                 yield put(setNumbers({ index: oldNumber - 1, value: oldAmount }));
             }
         } else {
@@ -87,7 +90,17 @@ function* applyingNumber() {
     }
 }
 
+function* calculateNumbersAmount() {
+    const given = yield select(selectGiven);
+    for (let i = 0; i < 9; i++) {
+        const counted = yield call(count, given, i + 1);
+        const newAmount = yield 9 - counted;
+        yield put(setNumbers({ index: i, value: newAmount }));
+    }
+}
+
 export function* mainSaga() {
     yield takeLatest(setLastKey.type, keyReaction);
     yield takeLatest(insertNumber.type, applyingNumber);
+    yield takeLatest(clearCustom.type, calculateNumbersAmount);
 }
