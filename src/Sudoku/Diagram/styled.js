@@ -7,7 +7,7 @@ export const Grid = styled.div`
     grid-template-rows: repeat(9, 1fr);
     grid-auto-flow: column;
     width: 100%;
-    height: 95vh;
+    height: 80vmin;
     background-color: ${({ theme }) => theme.colors.diagram.background};
     box-shadow: 0px 0px 15px 3px ${({ theme }) => alpha(theme.colors.global.shadow, 0.6)};
     border-radius: 10px;
@@ -47,7 +47,7 @@ export const FieldButton = styled.button`
     background-color: ${({ theme }) => theme.colors.diagram.field.button.background};
     outline: none;
     transition: 0.2s;
-    font-size: 25px;
+    font-size: 4vmin;
     color: ${({ theme }) => theme.colors.diagram.customNumber};
     text-shadow: 0px 0px 15px ${({ theme }) => theme.colors.diagram.field.button.numberShadow};
     cursor: cell;
@@ -61,7 +61,7 @@ export const FieldButton = styled.button`
             transform: scale(1.2);
             font-size: 0px;
             &::before {
-                font-size: 25px;
+                font-size: 4vmin;
                 content: "${({ activeNumber }) => activeNumber === 0 ? '⛒' : activeNumber}";
                 ${numberMatch ?
                 css`color: ${({ theme }) => theme.colors.diagram.field.button.activeMatchingText};`

@@ -8,7 +8,7 @@ export const ToolsBox = styled.div`
     align-content: stretch;
     gap: 5px;
     width: 100%;
-    min-height: 13vh;
+    min-height: 13vmin;
     background-color: ${({ theme }) => theme.colors.tools.background};
     box-shadow: 0px 0px 15px 3px ${({ theme }) => alpha(theme.colors.global.shadow, 0.6)};
     border-radius: 10px;
@@ -31,7 +31,7 @@ export const ToolsButton = styled.button`
     color: ${({ theme }) => theme.colors.tools.buttons.text};
     transition: 0.2s;
     cursor: pointer;
-    font-size: 19px;
+    font-size: 3vmin;
 
     ${({ theme, highlight }) => highlight && css`
         background-color: ${theme.colors.tools.buttons.highlightBackground};
