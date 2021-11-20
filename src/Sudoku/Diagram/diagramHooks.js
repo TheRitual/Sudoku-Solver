@@ -2,48 +2,68 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { intentions, modeParams } from "../../App/globalParams";
-import { selectActiveNumber, setActiveNumber, setIntention, setMode } from "../../App/mainSlice";
-import { combineArrays, getConflicts } from "../../utils/arrayFunctions";
+import { changeOneValue, combineArrays, countNumbers, getConflicts, getNullDiagram } from "../../utils/arrayFunctions";
 import { useLocalState } from "../../utils/customHooks";
 import diagramParamNames from "./diagramParamNames";
+import {
+    setActiveNumber,
+    setDiagramAndNumbers,
+    setIntention,
+    setMode,
+    clearDiagram,
+    selectActiveNumber,
+    selectIntention,
+    selectMode,
+} from "../../App/mainSlice";
 
 export const useDiagrams = () => {
-    const [given, setGiven] = useLocalState(diagramParamNames.GIVEN, new Array(9).fill(null).map(() => new Array(9).fill(null)));
-    const [custom, setCustom] = useLocalState(diagramParamNames.CUSTOM, new Array(9).fill(null).map(() => new Array(9).fill(null)));
+    const dispatch = useDispatch();
+    const [given, setGiven] = useLocalState(diagramParamNames.GIVEN, getNullDiagram());
+    const [custom, setCustom] = useLocalState(diagramParamNames.CUSTOM, getNullDiagram());
     const combined = combineArrays(given, custom);
     const [conflicts, setConflicts] = useState([]);
     const activeNumber = useSelector(selectActiveNumber);
+    const mode = useSelector(selectMode);
+    const intention = useSelector(selectIntention);
 
-    const setGivenField = (x, y) => {
+    const setField = (x, y) => {
+        setConflicts([]);
         const conflicts = getConflicts(combined, { x: x, y: y }, activeNumber);
         const newNumber = activeNumber === 0 ? null : activeNumber;
+        const table = changeOneValue(mode === modeParams.GIVEN ? given : custom, x, y, newNumber);
         if (conflicts.length === 0) {
-            setGiven(given.map(((col, ix) => {
-                return col.map((value, iy) =>
-                    x === ix && y === iy ? newNumber : value
-                )
-            })))
+            if (mode === modeParams.GIVEN) {
+                setGiven(table);
+                const newCombined = combineArrays(table, custom);
+                dispatch(setDiagramAndNumbers({ diagram: newCombined, numbers: countNumbers(newCombined) }));
+            } else {
+                if (given[x][y] === null) {
+                    setCustom(table);
+                    const newCombined = combineArrays(given, table);
+                    dispatch(setDiagramAndNumbers({ diagram: newCombined, numbers: countNumbers(newCombined) }));
+                }
+            }
         } else {
-            setConflicts(conflicts);
+            setConflicts(conflicts)
         }
     }
 
-    const setCustomField = (x, y) => {
-        const conflicts = getConflicts(combined, { x: x, y: y }, activeNumber);
-        const newNumber = activeNumber === 0 ? null : activeNumber;
-        if (conflicts.length === 0) {
-            given[x][y] === null &&
-                setCustom(custom.map(((col, ix) => {
-                    return col.map((value, iy) =>
-                        x === ix && y === iy ? newNumber : value
-                    )
-                })));
-        } else {
-            setConflicts(conflicts);
+    useEffect(() => {
+        switch (intention) {
+            case intentions.CLEAR_ALL:
+                setGiven(getNullDiagram());
+                setCustom(getNullDiagram());
+                dispatch(clearDiagram());
+                break;
+            case intentions.CLEAR_CUSTOM:
+                setCustom(getNullDiagram());
+                dispatch(setDiagramAndNumbers({ diagram: given, numbers: countNumbers(given) }));
+                break;
+            default: ;
         }
-    }
+    }, [intention, dispatch, setCustom, setGiven, given]);
 
-    return [given, combined, conflicts, setGivenField, setCustomField]
+    return [given, combined, conflicts, setField]
 }
 
 export const useKeyboard = (activeField, setActiveField) => {
@@ -108,7 +128,7 @@ export const useKeyboard = (activeField, setActiveField) => {
                 case "ArrowDown":
                 case "ArrowLeft":
                 case "ArrowRight": event.preventDefault(); break;
-                default : ;
+                default: ;
             }
             setKey(event.key);
         }
@@ -120,4 +140,3 @@ export const useKeyboard = (activeField, setActiveField) => {
         keyReaction(key); // eslint-disable-next-line
     }, [key]);
 }
-

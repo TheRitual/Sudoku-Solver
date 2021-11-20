@@ -7,7 +7,7 @@ import { modeParams } from "../../App/globalParams";
 
 const Diagram = () => {
     const grid = useRef(null);
-    const [given, combined, conflicts, setGivenField, setCustomField] = useDiagrams();
+    const [given, combined, conflicts, setField] = useDiagrams();
     const [activeField, setActiveField] = useState({ x: 4, y: 4 });
     const activeNumber = useSelector(selectActiveNumber);
     const [lastClicked, setLastClicked] = useState({ x: null, y: null });
@@ -20,10 +20,8 @@ const Diagram = () => {
     }
 
     const applyNumber = (x, y) => {
-        console.log(`APPLYING NUMBER ON FIELD (${x} ,${y}) with value: ${activeNumber}`);
         setLastClicked({ x: x, y: y });
-        mode === modeParams.GIVEN && setGivenField(x, y);
-        mode === modeParams.CUSTOM && setCustomField(x, y);
+        setField(x, y);
     }
 
     useEffect(() => {

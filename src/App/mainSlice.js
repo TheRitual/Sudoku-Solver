@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getNullDiagram } from "../utils/arrayFunctions";
 import { modeParams } from "./globalParams";
 
 const mainSlice = createSlice({
     name: 'sudokuSolver',
     initialState: {
-        diagram: new Array(9).fill(null).map(() => new Array(9).fill(null)),
+        diagram: getNullDiagram(),
         numbers: new Array(9).fill(9),
         activeNumber: 1,
         mode: modeParams.GIVEN,
@@ -13,9 +14,20 @@ const mainSlice = createSlice({
     reducers: {
         setDiagram: (state, {payload: diagram}) => {
             state.diagram = diagram;
+            state.intention = null;
         },
-        setNumbers: (state, { payload: change }) => {
-            state.numbers[change.index] = change.value;
+        clearDiagram: (state) => {
+            state.diagram = getNullDiagram();
+            state.numbers = new Array(9).fill(9)
+            state.intention = null;
+        },
+        setNumbers: (state, { payload: numbers }) => {
+            state.numbers = numbers;
+        },
+        setDiagramAndNumbers: (state, {payload}) => {
+            state.diagram = payload.diagram;
+            state.numbers = payload.numbers;
+            state.intention = null;
         },
         setActiveNumber: (state, { payload: number }) => {
             state.activeNumber = number;
@@ -34,15 +46,19 @@ const mainSlice = createSlice({
 
 export const {
     setDiagram,
+    clearDiagram,
     setNumbers,
+    setDiagramAndNumbers,
     setActiveNumber,
     setMode,
     setIntention,
 } = mainSlice.actions;
 
 export const selectSudokuSolverSaga = state => state.sudokuSolver;
+export const selectDiagram = state => selectSudokuSolverSaga(state).diagram;
 export const selectNumbers = state => selectSudokuSolverSaga(state).numbers;
 export const selectActiveNumber = state => selectSudokuSolverSaga(state).activeNumber;
 export const selectMode = state => selectSudokuSolverSaga(state).mode;
+export const selectIntention = state => selectSudokuSolverSaga(state).intention;
 
 export default mainSlice.reducer;

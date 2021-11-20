@@ -1,3 +1,7 @@
+export const getNullDiagram = () => {
+    return new Array(9).fill(null).map(() => new Array(9).fill(null));
+}
+
 export const count = (array, value) => {
     return array.reduce((s, a) => s + (Array.isArray(a) ? count(a, value) : a === value), 0);
 }
@@ -55,4 +59,20 @@ export const combineArrays = (main, additional) => {
         });;
     });
     return result;
+}
+
+export const changeOneValue = (oldArray, x, y, newValue) => {
+    return oldArray.map(((col, ix) => {
+        return col.map((value, iy) =>
+            x === ix && y === iy ? newValue : value
+        )
+    }))
+}
+
+export const countNumbers = (diagram) => {
+    let numbers = new Array(9);
+    for (let i = 1; i <= 9; i++) {
+        numbers[i - 1] = 9 - count(diagram, i);
+    }
+    return numbers;
 }
