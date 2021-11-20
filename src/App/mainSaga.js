@@ -1,6 +1,4 @@
-import { clearCustom, insertNumber, selectActiveField, selectActiveNumber, selectCustom, selectGiven, selectMode, setConflicts, setCustom, setGiven, setLastClicked, setNumbers } from "./mainSlice";
-import { select, put, takeLatest, call } from 'redux-saga/effects'
-import { combineArrays, count, getConflicts, isConflict } from '../utils/arrayFunctions'
+/*
 
 function* applyingNumber() {
     const mode = yield select(selectMode);
@@ -38,6 +36,7 @@ function* applyingNumber() {
         const conflicts = yield getConflicts(combined, activeField, activeNumber);
         yield put(setConflicts(conflicts));
     }
+    
 }
 
 function* calculateNumbersAmount() {
@@ -49,7 +48,8 @@ function* calculateNumbersAmount() {
     }
 }
 
+*/
+
 export function* mainSaga() {
-    yield takeLatest(insertNumber.type, applyingNumber);
-    yield takeLatest(clearCustom.type, calculateNumbersAmount);
+
 }
