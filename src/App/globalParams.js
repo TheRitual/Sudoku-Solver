@@ -1,9 +1,10 @@
 export const modeParams = {
-    GIVEN : "given",
-    CUSTOM : "custom",
-    SOLVING : "solving",
+    GIVEN: "given",
+    CUSTOM: "custom",
+    SOLVING: "solving",
 };
 
 export const intentions = {
-    CLEARALL : "clearALL",
+    CLEAR_ALL: "clearALL",
+    CLEAR_CUSTOM: "clearCustom",
 };

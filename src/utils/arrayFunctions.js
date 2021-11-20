@@ -30,7 +30,7 @@ export const isConflict = (array, field, number) => {
     const row = getRow(array, field.y);
     const col = getColumn(array, field.x);
     const group = getGroup(array, field);
-    return !row.includes(number) && !col.includes(number) && !group.includes(number);
+    return !(!row.includes(number) && !col.includes(number) && !group.includes(number));
 }
 
 export const getConflicts = (array, field, number) => {

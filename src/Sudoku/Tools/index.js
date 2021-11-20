@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { intentions, modeParams } from "../../App/globalParams";
-import { clearAll, clearCustom, selectMode, setIntention, setMode, solve } from "../../App/mainSlice";
+import { selectMode, setIntention, setMode } from "../../App/mainSlice";
 import { ToolsBox, ToolsButton } from "./styled";
 
 const Tools = () => {

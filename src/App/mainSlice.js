@@ -4,6 +4,7 @@ import { modeParams } from "./globalParams";
 const mainSlice = createSlice({
     name: 'sudokuSolver',
     initialState: {
+        diagram: new Array(9).fill(null).map(() => new Array(9).fill(null)),
         numbers: new Array(9).fill(9),
         activeNumber: 1,
         mode: modeParams.GIVEN,
