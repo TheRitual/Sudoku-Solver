@@ -9,9 +9,9 @@ const Tools = () => {
     return (
         <>
             <ToolsBox>
-                <ToolsButton isActive={mode === "given"} onClick={() => dispatch(setMode("given"))}>Given Numbers</ToolsButton>
-                <ToolsButton isActive={mode === "custom"} onClick={() => dispatch(setMode("custom"))}>Custom Numbers</ToolsButton>
-                <ToolsButton isActive={mode === "solving"} onClick={() => dispatch(solve())} highlight>SOLVE!</ToolsButton>
+                <ToolsButton isActive={mode === "given"} onClick={() => { mode !== "given" && dispatch(setMode("given")) }}>Given Numbers</ToolsButton>
+                <ToolsButton isActive={mode === "custom"} onClick={() => { mode !== "custom" && dispatch(setMode("custom")) }}>Custom Numbers</ToolsButton>
+                <ToolsButton isActive={mode === "solving"} onClick={() => { mode !== "solving" && dispatch(solve()) }} highlight>SOLVE!</ToolsButton>
             </ToolsBox>
             <ToolsBox>
                 <ToolsButton onClick={() => dispatch(clearCustom())}>Clear Custom</ToolsButton>

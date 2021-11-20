@@ -5,15 +5,19 @@ const mainSlice = createSlice({
     initialState: {
         given: new Array(9).fill(null).map(() => new Array(9).fill(null)),
         custom: new Array(9).fill(null).map(() => new Array(9).fill(null)),
-        activeField: { x: 0, y: 0 },
+        activeField: { x: 4, y: 4 },
         lastClicked: null,
         numbers: new Array(9).fill(9),
         activeNumber: 1,
         lastKey: null,
         conflicts: null,
         mode: "given",
+        intention: null,
     },
     reducers: {
+        setIntention: (state, { payload: intention }) => {
+            state.intention = intention;
+        },
         setGiven: (state, { payload: change }) => {
             state.given[change.x][change.y] = change.value;
         },
@@ -52,8 +56,9 @@ const mainSlice = createSlice({
         solve: (state) => {
             state.mode = "solving";
         },
-        insertNumber: () => { },
-        
+        insertNumber: (state, { payload: intention }) => {
+            state.intention = intention;
+        },
     }
 });
 
@@ -83,5 +88,6 @@ export const selectActiveNumber = state => selectSudokuSolverSaga(state).activeN
 export const selectLastKey = state => selectSudokuSolverSaga(state).lastKey;
 export const selectConflicts = state => selectSudokuSolverSaga(state).conflicts;
 export const selectMode = state => selectSudokuSolverSaga(state).mode;
+export const selectIntention = state => selectSudokuSolverSaga(state).mode;
 
 export default mainSlice.reducer;

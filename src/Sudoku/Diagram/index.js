@@ -1,6 +1,6 @@
 import { Field, Grid, FieldButton } from "./styled";
 import { useDispatch } from "react-redux";
-import { insertNumber, selectActiveField, selectActiveNumber, selectConflicts, selectCustom, selectGiven, selectLastClicked, selectMode, setActiveField } from "../../App/mainSlice";
+import { clearAll, clearCustom, insertNumber, selectActiveField, selectActiveNumber, selectConflicts, selectCustom, selectGiven, selectLastClicked, selectMode, setActiveField, setActiveNumber, setMode } from "../../App/mainSlice";
 import { useSelector } from "react-redux";
 import React, { useEffect, useRef } from "react";
 import { combineArrays } from "../../utils/arrayFunctions";
@@ -16,6 +16,62 @@ const Diagram = () => {
     const custom = useSelector(selectCustom);
     const combined = combineArrays(given, custom);
     const mode = useSelector(selectMode);
+
+    const keyReaction = (event) => {
+        switch (event.key) {
+            case "0":
+                dispatch(setActiveNumber(0)); break;
+            case "1":
+                dispatch(setActiveNumber(1)); break;
+            case "2":
+                dispatch(setActiveNumber(2)); break;
+            case "3":
+                dispatch(setActiveNumber(3)); break;
+            case "4":
+                dispatch(setActiveNumber(4)); break;
+            case "5":
+                dispatch(setActiveNumber(5)); break;
+            case "6":
+                dispatch(setActiveNumber(6)); break;
+            case "7":
+                dispatch(setActiveNumber(7)); break;
+            case "8":
+                dispatch(setActiveNumber(8)); break;
+            case "9":
+                dispatch(setActiveNumber(9)); break;
+            case "c":
+                dispatch(clearAll()); break;
+            case "b":
+                dispatch(clearCustom()); break;
+            case "o":
+                dispatch(setMode("given")); break;
+            case "p":
+                dispatch(setMode("custom")); break;
+            case "ArrowUp":
+                event.preventDefault(); activeField.y > 0 && dispatch(setActiveField({ x: activeField.x, y: activeField.y - 1 })); break;
+            case "w":
+                activeField.y > 0 && dispatch(setActiveField({ x: activeField.x, y: activeField.y - 1 })); break;
+            case "ArrowDown":
+                event.preventDefault(); activeField.y < 8 && dispatch(setActiveField({ x: activeField.x, y: activeField.y + 1 })); break;
+            case "s":
+                activeField.y < 8 && dispatch(setActiveField({ x: activeField.x, y: activeField.y + 1 })); break;
+            case "ArrowLeft":
+                event.preventDefault(); activeField.x > 0 && dispatch(setActiveField({ x: activeField.x - 1, y: activeField.y })); break;
+            case "a":
+                activeField.x > 0 && dispatch(setActiveField({ x: activeField.x - 1, y: activeField.y })); break;
+            case "ArrowRight":
+                event.preventDefault(); activeField.x < 8 && dispatch(setActiveField({ x: activeField.x + 1, y: activeField.y })); break;
+            case "d":
+                activeField.x < 8 && dispatch(setActiveField({ x: activeField.x + 1, y: activeField.y })); break;
+            default: break;
+        }
+    };
+
+
+    useEffect(() => {
+        window.addEventListener("keydown", keyReaction); // eslint-disable-next-line
+    }, []);
+
 
     useEffect(() => {
         const fields = Array.prototype.slice.call(grid.current.children);
@@ -44,7 +100,7 @@ const Diagram = () => {
                             <Field key={ix + "-" + iy} x={ix} y={iy}>
                                 <FieldButton
                                     onMouseOver={(e) => e.target.focus()}
-                                    onClick={() => applyNumber()}
+                                    onClick={() => { mode !== "solving" && applyNumber() }}
                                     x={ix}
                                     y={iy}
                                     isSolving={mode === "solving"}
@@ -56,7 +112,7 @@ const Diagram = () => {
                                     isConflict={isConflict(ix, iy)}
                                     isActive={ix === activeField.x && iy === activeField.y}
                                     numberMatch={x === activeNumber}
-                                    onFocus={() => dispatch(setActiveField({ x: ix, y: iy }))}>
+                                    onFocus={() => { activeField.x !== ix && activeField.y !== iy && dispatch(setActiveField({ x: ix, y: iy })) }}>
                                     {x}
                                 </FieldButton>
                             </Field>
