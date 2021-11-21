@@ -26,6 +26,10 @@ export const useDiagrams = () => {
     const mode = useSelector(selectMode);
     const intention = useSelector(selectIntention);
 
+    useEffect(() => {
+        dispatch(setDiagramAndNumbers({ diagram: combined, numbers: countNumbers(combined) })); // eslint-disable-next-line
+    }, []);
+
     const setField = (x, y) => {
         setConflicts([]);
         const conflicts = getConflicts(combined, { x: x, y: y }, activeNumber);
