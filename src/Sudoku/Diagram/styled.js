@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import alpha from "color-alpha";
+import { modeParams } from "../../App/globalParams";
 
 export const Grid = styled.div`
     display: grid;
@@ -36,32 +37,54 @@ export const Field = styled.div`
     ${({ y }) => y === 8 && "border-bottom: 0;"}
     ${({ x }) => x === 0 && "border-left: 0;"}
     ${({ x }) => x === 8 && "border-right: 0;"}
+
+    ${({ numberMatch, isSolving, theme }) => numberMatch && !isSolving && css`
+        background-color: ${theme.colors.diagram.field.button.matchBackground};
+    `};
+    
+    ${({ clickedRow, isSolving, theme }) => clickedRow && !isSolving && css`
+        background-color: ${theme.colors.diagram.field.button.crossShadow};
+    `};
+
+    ${({ clickedCol, isSolving, theme }) => clickedCol && !isSolving && css`
+        background-color: ${theme.colors.diagram.field.button.crossShadow};
+    `};
 `;
 
 export const FieldButton = styled.button`
     margin: 0;
     border: 0;
     width: 100%;
+    max-width: 100%;
     height: 100%;
+    max-height: 100%;
     border-radius: 8px;
     background-color: ${({ theme }) => theme.colors.diagram.field.button.background};
     outline: none;
-    transition: 0.2s;
-    font-size: 4vmin;
+    transition: 0.3s;
+    font-size: 3vmin;
     color: ${({ theme }) => theme.colors.diagram.customNumber};
     text-shadow: 0px 0px 15px ${({ theme }) => theme.colors.diagram.field.button.numberShadow};
     cursor: cell;
 
-    ${({ clickedRow, isSolving, theme }) => clickedRow && !isSolving && css`background-color: ${theme.colors.diagram.field.button.cross};`};
-    ${({ clickedCol, isSolving, theme }) => clickedCol && !isSolving && css`background-color: ${theme.colors.diagram.field.button.cross};`};
-    ${({ isActive, numberMatch, isSolving, theme }) => {
+    ${({ clickedRow, isSolving, theme }) => clickedRow && !isSolving && css`
+        background-color: ${theme.colors.diagram.field.button.cross};
+    `};
+
+    ${({ clickedCol, isSolving, theme }) => clickedCol && !isSolving && css`
+        background-color: ${theme.colors.diagram.field.button.cross};
+    `};
+
+    ${({ isActive, numberMatch, isSolving, mode, theme }) => {
         return isActive && !isSolving && css`
             background-color: ${theme.colors.diagram.field.button.activeBackground};
             border-radius: 10px;
             transform: scale(1.2);
             font-size: 0px;
+            opacity: 0.9;
+            border-radius: ${mode === modeParams.GIVEN ? "50%" : "20%"};
             &::before {
-                font-size: 4vmin;
+                font-size: 3vmin;
                 content: "${({ activeNumber }) => activeNumber === 0 ? '⛒' : activeNumber}";
                 ${numberMatch ?
                 css`color: ${({ theme }) => theme.colors.diagram.field.button.activeMatchingText};`
@@ -77,8 +100,13 @@ export const FieldButton = styled.button`
     ${({ isGiven }) => isGiven && css`
             color: ${({ theme }) => theme.colors.diagram.givenNumber};
             background-color: ${({ theme }) => theme.colors.diagram.givenBackground};
+            border-radius: 50%;
         `
     }
+
+    ${({ numberMatch, isSolving, theme }) => numberMatch && !isSolving && css`
+        color: ${theme.colors.diagram.field.button.matchText};
+    `};
 
     ${({ isConflict, isSolving, theme }) => isConflict && !isSolving && css`
         color: ${theme.colors.diagram.field.button.conflictText};
@@ -86,7 +114,8 @@ export const FieldButton = styled.button`
                         1px -1px 0 ${theme.colors.diagram.field.button.conflictOutline},
                         -1px 1px 0 ${theme.colors.diagram.field.button.conflictOutline},
                         1px 1px 0 ${theme.colors.diagram.field.button.conflictOutline};
-        background-color: ${alpha(theme.colors.diagram.field.button.conflictBackground, 0.5)};
+        background-color: ${alpha(theme.colors.diagram.field.button.conflictBackground, 0.7)};
+        box-shadow: inset 0px 0px 1vmin 1vmin ${theme.colors.diagram.field.button.conflictOutline};
     `}
 
     ${({ isSolving, theme }) => css`

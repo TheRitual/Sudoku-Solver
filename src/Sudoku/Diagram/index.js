@@ -40,13 +40,22 @@ const Diagram = () => {
                 combined.map((y, ix) => {
                     return y.map((x, iy) => {
                         return (
-                            <Field key={ix + "-" + iy} x={ix} y={iy}>
+                            <Field
+                                key={ix + "-" + iy}
+                                x={ix}
+                                y={iy}
+                                clickedRow={lastClicked && lastClicked.x === ix}
+                                clickedCol={lastClicked && lastClicked.y === iy}
+                                isSolving={mode === modeParams.SOLVING}
+                                numberMatch={x === activeNumber}>
+
                                 <FieldButton
                                     onMouseOver={(e) => e.target.focus()}
                                     onClick={() => { mode !== modeParams.SOLVING && applyNumber(ix, iy) }}
                                     x={ix}
                                     y={iy}
                                     isSolving={mode === modeParams.SOLVING}
+                                    mode={mode}
                                     isGiven={given[ix][iy] !== null}
                                     activeNumber={activeNumber}
                                     clickedRow={lastClicked && lastClicked.x === ix}
@@ -56,8 +65,11 @@ const Diagram = () => {
                                     isActive={ix === activeField.x && iy === activeField.y}
                                     numberMatch={x === activeNumber}
                                     onFocus={() => { setActiveField({ x: ix, y: iy }) }}>
+
                                     {x}
+
                                 </FieldButton>
+
                             </Field>
                         );
                     });
