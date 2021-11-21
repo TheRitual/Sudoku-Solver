@@ -15,6 +15,7 @@ const Tools = () => {
                 <ToolsButton isActive={mode === modeParams.SOLVING} onClick={() => { mode !== modeParams.SOLVING && dispatch(setMode(modeParams.SOLVING)) }} highlight>SOLVE!</ToolsButton>
             </ToolsBox>
             <ToolsBox>
+                <ToolsButton onClick={() => dispatch(setIntention(intentions.GENERATE_GIVEN))}>Generate Given</ToolsButton>
                 <ToolsButton onClick={() => dispatch(setIntention(intentions.CLEAR_CUSTOM))}>Clear Custom</ToolsButton>
                 <ToolsButton onClick={() => dispatch(setIntention(intentions.CLEAR_ALL))}>Clear All</ToolsButton>
             </ToolsBox>

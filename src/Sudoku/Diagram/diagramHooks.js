@@ -15,6 +15,7 @@ import {
     selectIntention,
     selectMode,
 } from "../../App/mainSlice";
+import templates from "../../utils/templates";
 
 export const useDiagrams = () => {
     const dispatch = useDispatch();
@@ -62,6 +63,13 @@ export const useDiagrams = () => {
             case intentions.CLEAR_CUSTOM:
                 setCustom(getNullDiagram());
                 dispatch(setDiagramAndNumbers({ diagram: given, numbers: countNumbers(given) }));
+                break;
+            case intentions.GENERATE_GIVEN:
+                const len = templates.length;
+                const template = templates[Math.floor(Math.random() * len)];
+                setGiven(template);
+                setCustom(getNullDiagram());
+                dispatch(setDiagramAndNumbers({ diagram: template, numbers: countNumbers(template) }));
                 break;
             default: ;
         }
