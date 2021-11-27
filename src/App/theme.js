@@ -59,6 +59,11 @@ export const theme = {
             border: pallette.sanJuan,
             text: pallette.parisM,
         },
+        method: {
+            background: pallette.amethyst,
+            border: pallette.sanJuan,
+            text: pallette.parisM,
+        },
         numbers: {
             background: pallette.indigo,
             border: pallette.sanJuan,
