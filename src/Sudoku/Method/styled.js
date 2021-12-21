@@ -3,9 +3,10 @@ import alpha from "color-alpha";
 
 export const MethodBox = styled.div`
     display: flex;
+    flex-direction: row;
     flex-wrap: nowrap;
-    align-items: stretch;
-    align-content: stretch;
+    align-items: center;
+    justify-items: center;
     gap: 5px;
     width: 100%;
     min-height: 13vmin;
@@ -21,3 +22,11 @@ export const MethodBox = styled.div`
         border-radius: 15px;
     }
 `;
+
+export const MethodText = styled.span`
+    flex: 1;
+    color: ${({ theme }) => theme.colors.method.text};
+    font-size: 4vmin;
+    text-align: center;
+    cursor: default;
+`

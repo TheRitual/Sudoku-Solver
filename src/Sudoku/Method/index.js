@@ -1,10 +1,12 @@
-import { MethodBox } from "./styled";
+import { MethodBox, MethodText } from "./styled";
 
 
 const Method = () => {
     return (
         <MethodBox>
-            Method
+            <MethodText>
+                Methods
+            </MethodText>
         </MethodBox>
     );
 }
