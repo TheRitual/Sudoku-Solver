@@ -17,8 +17,7 @@ const Sudoku = () => {
             <Title> Sudoku Solver </Title>
             <Information />            
             <Diagram />
-            {mode === modeParams.SOLVING && <Method />}
-            {mode !== modeParams.SOLVING && <Numbers />}
+            {mode === modeParams.SOLVING ? <Method /> : <Numbers />}
             <Tools />
         </Main>
     );
